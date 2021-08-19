@@ -33,15 +33,17 @@ CreateThread(function()
 
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
             ply = GetPlayerPed(-1)
+            
 
             if distance < 3 then               
                 -- Draw Ped UI
                 if aiming then 
                     Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                     if IsControlJustPressed(0, Config.Key) then
-                        exports['mythic_notify']:SendAlert('success', "Robbing the store!")
+                        exports['mythic_notify']:SendAlert('success', "Threatening Clerk!")
                         TriggerServerEvent('hayden_store:robClerk', i)
-                        TriggerEvent('hayden_store:playAnim')
+                       -- TriggerEvent('hayden_store:playAnim')
+                        TriggerEvent('hayden_store:npcAnim', i)
                     end 
                 end
             end
@@ -56,20 +58,37 @@ AddEventHandler('hayden_store:playAnim', function()
     RequestAnimDict("random@arrests")
     RequestAnimDict("random@arrests@busted")
     while (not HasAnimDictLoaded("random@arrests@busted")) do Citizen.Wait(0) end
-    TaskPlayAnim(pid,"random@arrests","idle_2_hands_up",1.0,-1.0, 5000, 0, 1, true, true, true)
+
+    TaskPlayAnim(pid, "random@arrests","idle_2_hands_up",1.0,-1.0, 5000, 0, 1, true, true, true)
 end)
 
 RegisterNetEvent('hayden_store:stopAnim')
 AddEventHandler('hayden_store:stopAnim', function()
-    print("stop anim")
+    local pid = PlayerPedId()
+    ClearPedTasks(pid)
+end)
+
+RegisterNetEvent('hayden_store:npcAnim')
+AddEventHandler('hayden_store:npcAnim', function(i)
+    
+    if not HasAnimDictLoaded("random@mugging3") then
+        RequestAnimDict("random@mugging3")
+        while not HasAnimDictLoaded("random@mugging3") do
+            -- Wait
+            Wait(0)
+        end
+    end
+
+    TaskPlayAnim(created_ped, "random@mugging3", "handsup_standing_base", 1.0,-1.0, 5000, 0, 1, false, false, false)
+    print(Config.NPC[i]['id'])
 
 end)
 
 CreateThread(function()
 
     if Config.Blips then 
-        for blipCreate = 1, #Config.BlipLoc do
-            local locationPos = Config.BlipLoc[blipCreate]
+        for blipCreate = 1, #Config.NPC do
+            local locationPos = Config.NPC[blipCreate]['BlipLoc']
     
             local blip = AddBlipForCoord(locationPos)
     
@@ -86,7 +105,7 @@ CreateThread(function()
     end 
 
     for i = 1, #Config.NPC do 
-        modelHash = GetHashKey("mp_m_shopkeep_01")
+        modelHash = GetHashKey(Config.NPC[i]['Hash'])
         RequestModel(modelHash)
 
         while not HasModelLoaded(modelHash) do
@@ -97,6 +116,7 @@ CreateThread(function()
         FreezeEntityPosition(created_ped, true)
         SetEntityInvincible(created_ped, true)
         SetBlockingOfNonTemporaryEvents(created_ped, true)
+       -- TaskPlayAnim(created_ped, "random@mugging3", "handsup_standing_base", 8.0, -8, 0.01, 49, 0, 0, 0, 0)
         print("Created")
     end 
 

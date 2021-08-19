@@ -7,9 +7,10 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
     if not Config.NPC[i]['Robbed'] then 
+        Config.NPC[i]['Robbed'] = true
         TriggerEvent('hayden_store:beginRob', source, i)
     else 
-        print("Already Robbed")
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "This store has been robbed recently!", length = 2500 })
     end 
 end)
 
@@ -29,7 +30,7 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
         local sZ = Config.NPC[i]['Coords'].z
         local sCoords = vector3(sX, sY, sZ)
 
-       if (#sCoords - #pCoords) > 5 or (#sCoords - #pCoords) < -5 then 
+       if (#sCoords - #pCoords) > 5 then 
             tooFar = true 
             print("Too far")  
             break  
@@ -68,7 +69,8 @@ AddEventHandler('hayden_store:reward', function(source, i)
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You have successfully robbed the store!", length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
-            Config.NPC[i]['Robbed'] = true
+            TriggerClientEvent('hayden_store:stopAnim', source)
+            
         else 
             print("Ped has no weapon")
         end 
