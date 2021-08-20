@@ -30,23 +30,22 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
         local sZ = Config.NPC[i]['Coords'].z
         local sCoords = vector3(sX, sY, sZ)
 
-       if (#sCoords - #pCoords) > 5 then 
-            tooFar = true 
-            print("Too far")  
-            break  
-        else 
-            timer = timer - 50
-            if timer <= 0 then
-                timer = 0 
-                if not tooFar then 
-                    TriggerEvent('hayden_store:reward', source, i ) 
+        if (#sCoords - #pCoords) > 5 then 
+                tooFar = true 
+                print("Too far")  
+                break  
+            else 
+                timer = timer - 50
+                if timer <= 0 then
                     timer = 0 
-                    return false 
+                    if not tooFar then 
+                        TriggerEvent('hayden_store:reward', source, i ) 
+                        timer = 0 
+                        return false 
+                    end 
                 end 
-            end 
         end 
     end 
-
 end)
 
 RegisterNetEvent('hayden_store:reward')
@@ -76,7 +75,7 @@ AddEventHandler('hayden_store:reward', function(source, i)
         end 
     else 
         print(xPlayer .. "tried to rob a store without being close to it")
-    end     
+    end    
 end)
 
 RegisterNetEvent('hayden_store:cooldown')

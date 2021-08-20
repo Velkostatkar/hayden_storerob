@@ -104,6 +104,7 @@ CreateThread(function()
         end
     end 
 
+    -- This is probably a shitty way of doing this
     for i = 1, #Config.NPC do 
         modelHash = GetHashKey(Config.NPC[i]['Hash'])
         RequestModel(modelHash)
@@ -116,7 +117,6 @@ CreateThread(function()
         FreezeEntityPosition(created_ped, true)
         SetEntityInvincible(created_ped, true)
         SetBlockingOfNonTemporaryEvents(created_ped, true)
-       -- TaskPlayAnim(created_ped, "random@mugging3", "handsup_standing_base", 8.0, -8, 0.01, 49, 0, 0, 0, 0)
         print("Created")
     end 
 
