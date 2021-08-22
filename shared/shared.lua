@@ -1,6 +1,6 @@
 Config = {}
 
-Config.NPC = {
+Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
         ['id'] = 1,
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
@@ -23,9 +23,9 @@ Config.NPC = {
     },
 }
 
-Config.Blips = true -- Whether to show blips on map or not
-Config.Key = 38 -- Actual FiveM key to start robbery
-Config.ContextKey = "E" -- Just UI Stuff
+Config.Blips = true -- Whether to show blips on map of the store or not
+Config.Key = 38 -- Actual FiveM key to start robbery (get it from https://docs.fivem.net/docs/game-references/controls/)
+Config.ContextKey = "E" -- THe Key that is shown as the key to start the robbery, this is just a UI benefit
 
 
 
