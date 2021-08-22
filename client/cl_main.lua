@@ -40,7 +40,6 @@ CreateThread(function()
                 if aiming then 
                     Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                     if IsControlJustPressed(0, Config.Key) then
-                        exports['mythic_notify']:SendAlert('success', "Threatening Clerk!")
                         TriggerServerEvent('hayden_store:robClerk', i)
                        -- TriggerEvent('hayden_store:playAnim')
                         TriggerEvent('hayden_store:npcAnim', i)

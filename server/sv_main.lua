@@ -7,6 +7,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
     if not Config.NPC[i]['Robbed'] then 
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You're now robbing the store! Keep your gun pointed!", length = 2500 })
         Config.NPC[i]['Robbed'] = true
         TriggerEvent('hayden_store:beginRob', source, i)
     else 
@@ -20,17 +21,16 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
     while true do 
         Wait(0)
 
-        local ply = source 
-        local xPlayer = ESX.GetPlayerFromId(ply)
+        ply = source 
         plyPed = GetPlayerPed(ply)
-        local pCoords = GetEntityCoords(plyPed)
+        pCoords = GetEntityCoords(plyPed)
     
-        local sX = Config.NPC[i]['Coords'].x
-        local sY = Config.NPC[i]['Coords'].y
-        local sZ = Config.NPC[i]['Coords'].z
-        local sCoords = vector3(sX, sY, sZ)
+        sX = Config.NPC[i]['Coords'].x
+        sY = Config.NPC[i]['Coords'].y
+        sZ = Config.NPC[i]['Coords'].z
+        sCoords = vector3(sX, sY, sZ)
 
-        if (#sCoords - #pCoords) > 5 then 
+        if (#pCoords - #sCoords) > 5 then 
                 tooFar = true 
                 print("Too far")  
                 break  
@@ -52,26 +52,16 @@ RegisterNetEvent('hayden_store:reward')
 AddEventHandler('hayden_store:reward', function(source, i)
     pay = math.random(Server.payMax, Server.payMin)
     -- Compare player coords
-    local ply = source 
-    local xPlayer = ESX.GetPlayerFromId(ply)
-    plyPed = GetPlayerPed(ply)
-    local pX,pY,pZ = table.unpack(GetEntityCoords(plyPed))
-    local pCoords = pX + pY + pZ
-
-    local sX = Config.NPC[i]['Coords'].x
-    local sY = Config.NPC[i]['Coords'].y
-    local sZ = Config.NPC[i]['Coords'].z
-    local sCoords = sX + sY + sZ
-
-    if (sCoords - pCoords) < 10 then
+    if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You have successfully robbed the store!", length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:stopAnim', source)
-            
         else 
             print("Ped has no weapon")
+            TriggerEvent('hayden_store:cooldown', i)
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "It appears you don't have the appropriate weapon for this!", length = 2500 })
         end 
     else 
         print(xPlayer .. "tried to rob a store without being close to it")
@@ -87,7 +77,7 @@ end)
 
 function hasWeapon()
     for k,v in pairs(Server.RobWeapons) do 
-        if GetSelectedPedWeapon(plyPed) == Server.RobWeapons[k] then 
+        if GetSelectedPedWeapon(plyPed) == v then 
             return true
         end  
     end 

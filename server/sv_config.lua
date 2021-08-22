@@ -10,4 +10,4 @@ Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE
     GetHashKey('WEAPON_ASSAULTRIFLE')
 }
 
-Server.SetTimer = 10 -- IN seconds, how long it takes to rob
+Server.SetTimer = 100 -- IN seconds, how long it takes to rob
