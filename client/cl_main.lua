@@ -1,11 +1,11 @@
 -- UI
 -- Notifications
 -- exports['mythic_notify']:SendAlert('type', 'message')
-
-  
 ESX = nil
 
 local PlayerData = {}
+isSpawned = false 
+talking = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -19,9 +19,7 @@ CreateThread(function()
         Wait(0) 
 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
-
         aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))
-        
         for i = 1, #Config.NPC do 
             sX = Config.NPC[i]['Coords'].x
             sY = Config.NPC[i]['Coords'].y
@@ -50,6 +48,16 @@ CreateThread(function()
     end 
 end)
 
+RegisterNetEvent('hayden_store:welcomeNPC')
+AddEventHandler('hayden_store:welcomeNPC', function(i)
+    PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GREET", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1) 
+end)
+
+RegisterNetEvent('hayden_store:cya')
+AddEventHandler('hayden_store:cya', function(i)
+    PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GOODBYE", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
+end)
+
 RegisterNetEvent('hayden_store:playAnim')
 AddEventHandler('hayden_store:playAnim', function()
     local pid = PlayerPedId()
@@ -70,17 +78,21 @@ end)
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)
     
-    if not HasAnimDictLoaded("random@mugging3") then
-        RequestAnimDict("random@mugging3")
-        while not HasAnimDictLoaded("random@mugging3") do
+    if not HasAnimDictLoaded("missheist_agency2ahands_up") then
+        RequestAnimDict("missheist_agency2ahands_up")
+        while not HasAnimDictLoaded("missheist_agency2ahands_up") do
             -- Wait
             Wait(0)
         end
     end
 
-    TaskPlayAnim(created_ped, "random@mugging3", "handsup_standing_base", 1.0,-1.0, 5000, 0, 1, false, false, false)
-    print(Config.NPC[i]['id'])
+    TaskPlayAnim(Config.NPC[i]['id'], "missheist_agency2ahands_up", "handsup_anxious", 8.0, -8.0, -1, 1, 0, false, false, false)
+    PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
+end)
 
+RegisterNetEvent('hayden_store:clearTask')
+AddEventHandler('hayden_store:clearTask', function(i)
+    ClearPedTasks(Config.NPC[i]['id'])
 end)
 
 CreateThread(function()
@@ -116,7 +128,9 @@ CreateThread(function()
         FreezeEntityPosition(created_ped, true)
         SetEntityInvincible(created_ped, true)
         SetBlockingOfNonTemporaryEvents(created_ped, true)
-        print("Created")
+        Config.NPC[i]['id'] = created_ped
+        print(Config.NPC[i]['id'])
+        isSpawned = true
     end 
 
 end)

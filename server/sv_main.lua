@@ -20,7 +20,6 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
     local timer = (Server.SetTimer * 1000)
     while true do 
         Wait(0)
-
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
@@ -31,19 +30,20 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
         sCoords = vector3(sX, sY, sZ)
 
         if (#pCoords - #sCoords) > 5 then 
-                tooFar = true 
-                print("Too far")  
-                break  
-            else 
-                timer = timer - 50
-                if timer <= 0 then
+            tooFar = true 
+            print("Too far")  
+            break  
+        else 
+            timer = timer - 50
+
+            if timer <= 0 then
+                timer = 0 
+                if not tooFar then 
+                    TriggerEvent('hayden_store:reward', source, i ) 
                     timer = 0 
-                    if not tooFar then 
-                        TriggerEvent('hayden_store:reward', source, i ) 
-                        timer = 0 
-                        return false 
-                    end 
+                    return false 
                 end 
+            end 
         end 
     end 
 end)
@@ -51,13 +51,16 @@ end)
 RegisterNetEvent('hayden_store:reward')
 AddEventHandler('hayden_store:reward', function(source, i)
     pay = math.random(Server.payMax, Server.payMin)
+    xPlayer = ESX.GetPlayerFromId(source)
     -- Compare player coords
     if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You have successfully robbed the store!", length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
+            print("Successful robbery")
             TriggerClientEvent('hayden_store:stopAnim', source)
+            TriggerClientEvent('hayden_store:clearTask', source, i)
         else 
             print("Ped has no weapon")
             TriggerEvent('hayden_store:cooldown', i)

@@ -2,7 +2,7 @@ Config = {}
 
 Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
-        ['id'] = 1,
+        ['id'] = 0,
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1960.1, y = 3739.9, z = 31.3}, -- Coords of the ped
         ['Heading'] = 360, -- Heading of the ped
@@ -12,7 +12,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
     },
     [2] = {
-        ['id'] = 2,
+        ['id'] = 0,
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1991.6, y = 3769.2, z = 31.3}, -- Coords of the ped
         ['Heading'] = 100, -- Heading of the ped
