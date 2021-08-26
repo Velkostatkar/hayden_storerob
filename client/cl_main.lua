@@ -14,12 +14,23 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	PlayerData.job = job
+	TriggerServerEvent('esx_jobnumbers:setjobnumbers', job)
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+    TriggerServerEvent('hayden_store:countPolice')
+end)
+
 CreateThread(function()        
     while true do
         Wait(0) 
-
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
-        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))
+        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))       
+
         for i = 1, #Config.NPC do 
             sX = Config.NPC[i]['Coords'].x
             sY = Config.NPC[i]['Coords'].y
@@ -32,15 +43,12 @@ CreateThread(function()
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
             ply = GetPlayerPed(-1)
             
-
             if distance < 3 then               
                 -- Draw Ped UI
                 if aiming then 
                     Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                     if IsControlJustPressed(0, Config.Key) then
                         TriggerServerEvent('hayden_store:robClerk', i)
-                       -- TriggerEvent('hayden_store:playAnim')
-                        TriggerEvent('hayden_store:npcAnim', i)
                     end 
                 end
             end
@@ -58,17 +66,6 @@ AddEventHandler('hayden_store:cya', function(i)
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GOODBYE", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
-RegisterNetEvent('hayden_store:playAnim')
-AddEventHandler('hayden_store:playAnim', function()
-    local pid = PlayerPedId()
-    RequestAnimDict("random")
-    RequestAnimDict("random@arrests")
-    RequestAnimDict("random@arrests@busted")
-    while (not HasAnimDictLoaded("random@arrests@busted")) do Citizen.Wait(0) end
-
-    TaskPlayAnim(pid, "random@arrests","idle_2_hands_up",1.0,-1.0, 5000, 0, 1, true, true, true)
-end)
-
 RegisterNetEvent('hayden_store:stopAnim')
 AddEventHandler('hayden_store:stopAnim', function()
     local pid = PlayerPedId()
@@ -78,15 +75,15 @@ end)
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)
     
-    if not HasAnimDictLoaded("missheist_agency2ahands_up") then
-        RequestAnimDict("missheist_agency2ahands_up")
-        while not HasAnimDictLoaded("missheist_agency2ahands_up") do
+    if not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") then
+        RequestAnimDict("oddjobs@shop_robbery@rob_till")
+        while not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") do
             -- Wait
             Wait(0)
         end
     end
 
-    TaskPlayAnim(Config.NPC[i]['id'], "missheist_agency2ahands_up", "handsup_anxious", 8.0, -8.0, -1, 1, 0, false, false, false)
+    TaskPlayAnim(Config.NPC[i]['id'], "oddjobs@shop_robbery@rob_till", "loop", 8.0, -8.0, -1, 1, 0, false, false, false)
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
@@ -103,7 +100,7 @@ CreateThread(function()
     
             local blip = AddBlipForCoord(locationPos)
     
-            SetBlipSprite (blip, 409)
+            SetBlipSprite (blip, 156)
             SetBlipDisplay(blip, 4)
             SetBlipScale  (blip, 0.8)
             SetBlipColour (blip, 48)
@@ -134,8 +131,3 @@ CreateThread(function()
     end 
 
 end)
-
-
-
-
-

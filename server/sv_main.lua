@@ -1,15 +1,42 @@
 robbedStore = {}
 ESX = nil
 tooFar = false 
-
+pcountPolice = 0
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
+-- This is just a thread to count cops ever x amount of seconds
+CreateThread(function()
+    while true do 
+        Wait(Server.CountCops * 1000)
+        TriggerEvent('hayden_store:countPolice')
+    end 
+end)
+
+RegisterNetEvent('hayden_store:countPolice')
+AddEventHandler('hayden_store:countPolice', function(source, cb)
+	local xPlayers = ESX.GetPlayers()
+ 	pcountPolice = 0
+
+    for i=1, #xPlayers, 1 do
+        local Player = ESX.GetPlayerFromId(xPlayers[i])
+        if Player.job.name == 'police' then
+           pcountPolice = pcountPolice + 1
+        end
+    end
+end)
 
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
-    if not Config.NPC[i]['Robbed'] then 
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You're now robbing the store! Keep your gun pointed!", length = 2500 })
-        Config.NPC[i]['Robbed'] = true
-        TriggerEvent('hayden_store:beginRob', source, i)
+    if not Config.NPC[i]['Robbed'] then
+        print(pcountPolice)
+        if pcountPolice >= Server.RequiredCops then   
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You're now robbing the store! Keep your gun pointed!", length = 2500 })
+            TriggerClientEvent('hayden_store:npcAnim', source, i)
+            Config.NPC[i]['Robbed'] = true
+            TriggerEvent('hayden_store:beginRob', source, i)
+        else 
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "Not enough cops to rob currently have " .. pcountPolice .. " out of the required "..Server.RequiredCops, length = 2500 })
+        end 
     else 
         TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "This store has been robbed recently!", length = 2500 })
     end 
