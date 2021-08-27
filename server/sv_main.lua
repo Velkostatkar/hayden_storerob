@@ -1,7 +1,7 @@
-robbedStore = {}
 ESX = nil
 tooFar = false 
 pcountPolice = 0
+
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 -- This is just a thread to count cops ever x amount of seconds
@@ -9,9 +9,10 @@ CreateThread(function()
     while true do 
         Wait(Server.CountCops * 1000)
         TriggerEvent('hayden_store:countPolice')
-    end 
+    end
 end)
 
+-- This is the actual functionality behind counting police
 RegisterNetEvent('hayden_store:countPolice')
 AddEventHandler('hayden_store:countPolice', function(source, cb)
 	local xPlayers = ESX.GetPlayers()
@@ -23,17 +24,41 @@ AddEventHandler('hayden_store:countPolice', function(source, cb)
            pcountPolice = pcountPolice + 1
         end
     end
+
+    if Config.Debug then 
+        print("Cop count updated, current cop count is: " .. pcountPolice)
+    end
+
 end)
+
+function hasWeapon()
+    for k,v in pairs(Server.RobWeapons) do 
+        if GetSelectedPedWeapon(plyPed) == v then 
+            return true
+        end  
+    end 
+end 
+
 
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
     if not Config.NPC[i]['Robbed'] then
         print(pcountPolice)
-        if pcountPolice >= Server.RequiredCops then   
-            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You're now robbing the store! Keep your gun pointed!", length = 2500 })
+        if pcountPolice >= Server.RequiredCops then 
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['playerRobbing'], length = 2500 })
             TriggerClientEvent('hayden_store:npcAnim', source, i)
             Config.NPC[i]['Robbed'] = true
             TriggerEvent('hayden_store:beginRob', source, i)
+            local xPlayers = ESX.GetPlayers()
+            for i = 1, #xPlayers do 
+                local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+                if xPlayer.job.name == 'police' then 
+                    TriggerClientEvent('hayden_store:callCops', source, i)
+                end 
+            end 
+            if Config.Debug then 
+                print("Player with ID " .. source .. " is robbing a store")
+            end 
         else 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "Not enough cops to rob currently have " .. pcountPolice .. " out of the required "..Server.RequiredCops, length = 2500 })
         end 
@@ -85,16 +110,24 @@ AddEventHandler('hayden_store:reward', function(source, i)
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You have successfully robbed the store!", length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
-            print("Successful robbery")
             TriggerClientEvent('hayden_store:stopAnim', source)
             TriggerClientEvent('hayden_store:clearTask', source, i)
+            
+            if Config.Debug then 
+                print("Player with ID " .. source .. " successfully robbed the store")
+            end 
+
         else 
-            print("Ped has no weapon")
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "It appears you don't have the appropriate weapon for this!", length = 2500 })
+            if Config.Debug then 
+                print("Player with ID " .. source .. " couldn't rob a store due to not having the required weapon")
+            end 
         end 
     else 
-        print(xPlayer .. "tried to rob a store without being close to it")
+        if Config.Debug then 
+            print("Player with ID " .. source .. " tried to rob a store whilst not near one, maybe hacking?")
+        end 
     end    
 end)
 
@@ -102,13 +135,9 @@ RegisterNetEvent('hayden_store:cooldown')
 AddEventHandler('hayden_store:cooldown', function(i)
     Wait(Server.Cooldown * 1000)
     Config.NPC[i]['Robbed'] = false 
-    print("Can rob")
-end)
 
-function hasWeapon()
-    for k,v in pairs(Server.RobWeapons) do 
-        if GetSelectedPedWeapon(plyPed) == v then 
-            return true
-        end  
-    end 
-end 
+    if Config.Debug then 
+        print("The store has been refreshed, it can now be robbed again")
+    end
+
+end)

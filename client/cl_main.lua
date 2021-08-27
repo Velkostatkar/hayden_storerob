@@ -2,10 +2,9 @@
 -- Notifications
 -- exports['mythic_notify']:SendAlert('type', 'message')
 ESX = nil
-
 local PlayerData = {}
-isSpawned = false 
 talking = false
+created = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -42,7 +41,7 @@ CreateThread(function()
 
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
             ply = GetPlayerPed(-1)
-            
+           -- print(distance)
             if distance < 3 then               
                 -- Draw Ped UI
                 if aiming then 
@@ -52,6 +51,7 @@ CreateThread(function()
                     end 
                 end
             end
+
         end 
     end 
 end)
@@ -87,13 +87,40 @@ AddEventHandler('hayden_store:npcAnim', function(i)
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
+RegisterNetEvent('hayden_store:callCops')
+AddEventHandler('hayden_store:callCops', function(i)
+    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(source)))
+
+   -- local blip = AddBlip(Config.NPC[i]['Coords'].xyz, 161, 3, Translation[Config.Language]["robbery"], 2.0)
+   -- PulseBlip(blip)
+
+	ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
+
+    UnregisterPedheadshot(mugshot)
+
+    while true do
+        Wait(0)
+
+        local name = GetCurrentResourceName() .. math.random(999)
+
+        AddTextEntry(name, '~INPUT_CONTEXT~ ' .. Translation[Config.Language]['set_waypoint'] .. '\n~INPUT_FRONTEND_RRIGHT~ ' .. Translation[Config.Language]['hide_box'])
+        DisplayHelpTextThisFrame(name, false)
+
+        if IsControlPressed(0, 38) then
+            SetNewWaypoint(Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y)
+            return
+        elseif IsControlPressed(0, 194) then
+            return
+        end
+    end
+end)
+
 RegisterNetEvent('hayden_store:clearTask')
 AddEventHandler('hayden_store:clearTask', function(i)
     ClearPedTasks(Config.NPC[i]['id'])
 end)
 
 CreateThread(function()
-
     if Config.Blips then 
         for blipCreate = 1, #Config.NPC do
             local locationPos = Config.NPC[blipCreate]['BlipLoc']
@@ -112,7 +139,7 @@ CreateThread(function()
         end
     end 
 
-    -- This is probably a shitty way of doing this
+    -- This is probably a shit way of doing this
     for i = 1, #Config.NPC do 
         modelHash = GetHashKey(Config.NPC[i]['Hash'])
         RequestModel(modelHash)
@@ -121,13 +148,13 @@ CreateThread(function()
             Wait(1)
         end
 
-        created_ped = CreatePed(0, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'])
+        created_ped = CreatePed(0, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], true)
+
         FreezeEntityPosition(created_ped, true)
         SetEntityInvincible(created_ped, true)
         SetBlockingOfNonTemporaryEvents(created_ped, true)
         Config.NPC[i]['id'] = created_ped
         print(Config.NPC[i]['id'])
-        isSpawned = true
-    end 
+    end
 
 end)
