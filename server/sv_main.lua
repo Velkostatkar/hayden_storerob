@@ -14,7 +14,7 @@ end)
 
 -- This is the actual functionality behind counting police
 RegisterNetEvent('hayden_store:countPolice')
-AddEventHandler('hayden_store:countPolice', function(source, cb)
+AddEventHandler('hayden_store:countPolice', function(source)
 	local xPlayers = ESX.GetPlayers()
  	pcountPolice = 0
 
@@ -39,7 +39,6 @@ function hasWeapon()
     end 
 end 
 
-
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
     if not Config.NPC[i]['Robbed'] then
@@ -49,6 +48,7 @@ AddEventHandler('hayden_store:robClerk', function(i)
             TriggerClientEvent('hayden_store:npcAnim', source, i)
             Config.NPC[i]['Robbed'] = true
             TriggerEvent('hayden_store:beginRob', source, i)
+
             local xPlayers = ESX.GetPlayers()
             for i = 1, #xPlayers do 
                 local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
@@ -56,9 +56,11 @@ AddEventHandler('hayden_store:robClerk', function(i)
                     TriggerClientEvent('hayden_store:callCops', source, i)
                 end 
             end 
+
             if Config.Debug then 
                 print("Player with ID " .. source .. " is robbing a store")
             end 
+            
         else 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "Not enough cops to rob currently have " .. pcountPolice .. " out of the required "..Server.RequiredCops, length = 2500 })
         end 

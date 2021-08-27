@@ -29,7 +29,6 @@ CreateThread(function()
         Wait(0) 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
         aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))       
-
         for i = 1, #Config.NPC do 
             sX = Config.NPC[i]['Coords'].x
             sY = Config.NPC[i]['Coords'].y
@@ -41,7 +40,6 @@ CreateThread(function()
 
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
             ply = GetPlayerPed(-1)
-           -- print(distance)
             if distance < 3 then               
                 -- Draw Ped UI
                 if aiming then 
@@ -51,13 +49,12 @@ CreateThread(function()
                     end 
                 end
             end
-
         end 
     end 
 end)
 
 RegisterNetEvent('hayden_store:welcomeNPC')
-AddEventHandler('hayden_store:welcomeNPC', function(i)
+AddEventHandler('hayden_store:welcomeNPC', function(i)  
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GREET", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1) 
 end)
 
@@ -78,7 +75,6 @@ AddEventHandler('hayden_store:npcAnim', function(i)
     if not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") then
         RequestAnimDict("oddjobs@shop_robbery@rob_till")
         while not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") do
-            -- Wait
             Wait(0)
         end
     end
