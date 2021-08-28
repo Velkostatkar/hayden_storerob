@@ -16,5 +16,5 @@ Citizen.CreateThread( function()
         end
     end
     
-    PerformHttpRequest("https://raw.githubusercontent.com"..updatePath.."/master/version", checkVersion, "GET")
+    PerformHttpRequest("https://raw.githubusercontent.com"..updatePath.."/main/version", checkVersion, "GET")
 end)
