@@ -151,7 +151,7 @@ end)
 CreateThread(function(tim)
     while true do 
         Wait(0)
-        if display then 
+        if display and actualTime ~= false and actualTime ~= true then 
             SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
             SetTextFont(font)
             SetTextScale(size, size)
@@ -162,6 +162,6 @@ CreateThread(function(tim)
             SetTextEntry("STRING")
             AddTextComponentString("Robbery in progress, time left : ".. actualTime)
             DrawText(textPos.x, textPos.y)
-       end 
+       end
     end 
 end)

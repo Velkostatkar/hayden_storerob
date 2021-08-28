@@ -10,7 +10,7 @@ Server.payMin = 150 -- Max Money given
 Server.Cooldown = 60 -- Seconds, how long cooldown b4 the same store can b robbed
 
 Server.RequiredCops = 1 -- Required cops to rob store
-Server.SetTimer = 30 -- IN seconds, how long it takes to rob
+Server.SetTimer = 5 -- IN seconds, how long it takes to rob
 
 Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE 
 -- If you're a dev and reading this, I use the IsPedArmed native on the client, I just double check via the server and a for loop to ensure that the ped actually has a weapon listed below

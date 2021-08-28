@@ -100,7 +100,7 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
                 if not tooFar then 
                     TriggerEvent('hayden_store:reward', source, i ) 
                     timer = 0 
-                    return false, timer
+                    return false
                 end 
             end 
         end 
