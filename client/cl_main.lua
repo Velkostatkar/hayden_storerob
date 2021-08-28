@@ -4,7 +4,7 @@
 
 ESX = nil
 local PlayerData = {}
-talking = false
+talk = false
 created = false
 
 Citizen.CreateThread(function()
@@ -51,18 +51,21 @@ CreateThread(function()
                     end
                 end 
             end
+
+            if distance < 10 then 
+                TriggerEvent('hayden_store:welcomeNPC', distance, i)
+            end 
+
         end 
     end 
 end)
 
 RegisterNetEvent('hayden_store:welcomeNPC')
-AddEventHandler('hayden_store:welcomeNPC', function(i)  
-    PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GREET", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1) 
-end)
-
-RegisterNetEvent('hayden_store:cya')
-AddEventHandler('hayden_store:cya', function(i)
-    PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GOODBYE", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
+AddEventHandler('hayden_store:welcomeNPC', function(distance, i)
+    if distance < 5 and not talk then   
+        PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GREET", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 0) 
+        talk = true
+    end 
 end)
 
 RegisterNetEvent('hayden_store:npcAnim')
