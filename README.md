@@ -1,5 +1,6 @@
 # What is this Script?
-I've seen some very outdated, exploitable store robberies out there, so I've decided to take an initiative and release something that I feel is simplistic and suits all ESX servers.
+This is an unexploitable, up-to-date store robbery system created for ESX Legacy, it supports complete config changes & is localised to allow for other languages.
+If you find ANY exploits within the script, please directly contact me via my discord - this is my first release on FiveM, and I'm still not 100% with LUA.
 # Requirements
 This resource has ONLY been tested on ESX Legacy (update btw), and has been untested elsewhere
 # How to setup?
