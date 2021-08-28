@@ -31,10 +31,6 @@ AddEventHandler('hayden_store:countPolice', function(source)
 
 end)
 
-RegisterCommand('hayden:store', function()
-    print(pcountPolice)
-end, false)
-
 function hasWeapon()
     for k,v in pairs(Server.RobWeapons) do 
         if GetSelectedPedWeapon(plyPed) == v then 

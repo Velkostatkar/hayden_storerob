@@ -46,16 +46,14 @@ Config.Blips = true -- Whether to show blips on map of the store or not
 Config.Key = 38 -- Actual FiveM key to start robbery (get it from https://docs.fivem.net/docs/game-references/controls/)
 Config.ContextKey = "E" -- THe Key that is shown as the key to start the robbery, this is just a UI benefit
 
-Config.ShowPlayer = true -- Whether or not when a player is robbing a store, a mugshot is posted of that player
-
-Config.Debug = true -- Debug prints to see if something goes wrong and where
+Config.Debug = false -- Debug prints to see if something goes wrong and where
 
 Config.Language = 'en' -- Desired Language for translations, currently only english
 
 Translation = { 
     ['en'] = {
         ['robbing'] = "Alarm has been triggered",
-        ['cop_msg'] = "Alarm has been set off at a store!",
+        ['cop_msg'] = "Alarm has been set off at a store, CCTV has caught the criminals face!",
         ['set_waypoint'] = "Set waypoint to the store",
         ['hide_box'] = "Close this box",
         ['playerRobbing'] = "You're now robbing the store! Keep your gun pointed!",
