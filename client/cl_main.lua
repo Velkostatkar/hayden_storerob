@@ -25,6 +25,10 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
     TriggerServerEvent('hayden_store:countPolice')
 end)
 
+AddEventHandler('playerDropped', function(xPlayer)
+    TriggerServerEvent('hayden_store:countPolice')
+end)
+
 CreateThread(function()        
     while true do
         Wait(0) 
@@ -40,14 +44,16 @@ CreateThread(function()
             tL3 = Config.NPC[i]['TextLoc'].z
 
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
-            ply = GetPlayerPed(-1)
-            if distance < 3 then               
-                if aiming then 
-                    Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
-                    if IsControlJustPressed(0, Config.Key) then
-                        TriggerServerEvent('hayden_store:robClerk', i)
-                    end 
-                end
+            
+            if distance < 3 then
+                if IsPedArmed(PlayerPedId(), 7) then               
+                    if aiming then 
+                        Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
+                        if IsControlJustPressed(0, Config.Key) then
+                            TriggerServerEvent('hayden_store:robClerk', i)
+                        end 
+                    end
+                end 
             end
         end 
     end 

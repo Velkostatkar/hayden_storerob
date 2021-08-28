@@ -28,7 +28,6 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['TextLoc'] = {x = 1960.1, y = 3739.9, z = 31.0}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
-        ['pedC'] = 0,
     },
     [2] = {
         ['id'] = 0, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -40,7 +39,6 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['TextLoc'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
         ['BlipLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of blips for store
-        ['pedC'] = 0,
     },
 }
 
@@ -52,9 +50,9 @@ Config.ShowPlayer = true -- Whether or not when a player is robbing a store, a m
 
 Config.Debug = true -- Debug prints to see if something goes wrong and where
 
-Config.Language = 'en'
+Config.Language = 'en' -- Desired Language for translations, currently only english
 
-Translation = { -- I only know english, hense why english is only here
+Translation = { 
     ['en'] = {
         ['robbing'] = "Alarm has been triggered",
         ['cop_msg'] = "Alarm has been set off at a store!",
@@ -62,6 +60,10 @@ Translation = { -- I only know english, hense why english is only here
         ['hide_box'] = "Close this box",
         ['playerRobbing'] = "You're now robbing the store! Keep your gun pointed!",
         ['robbery'] = "Store Robbery",
+        ['no_cop'] = "Not enough cops on duty to rob the store!",
+        ['recent'] = "This store has been robbed recently!",
+        ['success'] = "You have successfully robbed the store!",
+        ['nowep'] = "It appears you don't have the appropriate weaponry for this task!",
     }
 }
 

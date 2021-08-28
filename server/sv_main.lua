@@ -8,14 +8,6 @@ pcountPolice = 0
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
--- This is just a thread to count cops ever x amount of seconds
-CreateThread(function()
-    while true do 
-        Wait(Server.CountCops * 1000)
-        TriggerEvent('hayden_store:countPolice')
-    end
-end)
-
 -- This is the actual functionality behind counting police
 RegisterNetEvent('hayden_store:countPolice')
 AddEventHandler('hayden_store:countPolice', function(source)
@@ -67,10 +59,10 @@ AddEventHandler('hayden_store:robClerk', function(i)
             end 
             
         else 
-            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "Not enough cops to rob currently have " .. pcountPolice .. " out of the required "..Server.RequiredCops, length = 2500 })
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['no_cop'], length = 2500 })
         end 
     else 
-        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "This store has been robbed recently!", length = 2500 })
+        TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['recent'], length = 2500 })
     end 
 end)
 
@@ -114,7 +106,7 @@ AddEventHandler('hayden_store:reward', function(source, i)
     -- Compare player coords
     if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
-            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = "You have successfully robbed the store!", length = 2500 })
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['success'], length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:stopAnim', source)
@@ -126,10 +118,12 @@ AddEventHandler('hayden_store:reward', function(source, i)
 
         else 
             TriggerEvent('hayden_store:cooldown', i)
-            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = "It appears you don't have the appropriate weapon for this!", length = 2500 })
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['nowep'], length = 2500 })
+            
             if Config.Debug then 
                 print("Player with ID " .. source .. " couldn't rob a store due to not having the required weapon")
             end 
+
         end 
     else 
         if Config.Debug then 
