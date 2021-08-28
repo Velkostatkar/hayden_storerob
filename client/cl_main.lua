@@ -52,19 +52,7 @@ CreateThread(function()
                 end 
             end
 
-            if distance < 10 then 
-                TriggerEvent('hayden_store:welcomeNPC', distance, i)
-            end 
-
         end 
-    end 
-end)
-
-RegisterNetEvent('hayden_store:welcomeNPC')
-AddEventHandler('hayden_store:welcomeNPC', function(distance, i)
-    if distance < 5 and not talk then   
-        PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GREET", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 0) 
-        talk = true 
     end 
 end)
 
