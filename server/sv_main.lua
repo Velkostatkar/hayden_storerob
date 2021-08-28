@@ -8,6 +8,10 @@ pcountPolice = 0
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+AddEventHandler('playerDropped', function()
+    TriggerEvent('hayden_store:countPolice')
+end)
+
 -- This is the actual functionality behind counting police
 RegisterNetEvent('hayden_store:countPolice')
 AddEventHandler('hayden_store:countPolice', function(source)
@@ -26,6 +30,10 @@ AddEventHandler('hayden_store:countPolice', function(source)
     end
 
 end)
+
+RegisterCommand('hayden:store', function()
+    print(pcountPolice)
+end, false)
 
 function hasWeapon()
     for k,v in pairs(Server.RobWeapons) do 

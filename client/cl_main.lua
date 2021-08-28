@@ -25,10 +25,6 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
     TriggerServerEvent('hayden_store:countPolice')
 end)
 
-AddEventHandler('playerDropped', function(xPlayer)
-    TriggerServerEvent('hayden_store:countPolice')
-end)
-
 CreateThread(function()        
     while true do
         Wait(0) 
@@ -44,7 +40,7 @@ CreateThread(function()
             tL3 = Config.NPC[i]['TextLoc'].z
 
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
-            
+
             if distance < 3 then
                 if IsPedArmed(PlayerPedId(), 7) then               
                     if aiming then 

@@ -91,5 +91,4 @@ Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE
 }
 
 Server.RequiredCops = 1 -- Required cops to rob store
-Server.CountCops = 5 -- In seconds, how many seconds b4 the server counts the cops and updates the value
 Server.SetTimer = 5 -- IN seconds, how long it takes to rob
