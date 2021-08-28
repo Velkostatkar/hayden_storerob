@@ -1,9 +1,10 @@
+-- Credits to Blumlaut who released how to do this via his github
 Citizen.CreateThread( function()
-    updatePath = "/YeahItsHayden/hayden_storerob" -- your git user/repo path
-    resourceName = " ("..GetCurrentResourceName()..")" -- the resource name
+    updatePath = "/YeahItsHayden/hayden_storerob"
+    resourceName = " ("..GetCurrentResourceName()..")" 
     
     function checkVersion(err,responseText, headers)
-        curVersion = LoadResourceFile(GetCurrentResourceName(), "version") -- make sure the "version" file actually exists in your resource root!
+        curVersion = LoadResourceFile(GetCurrentResourceName(), "version")
     
         if curVersion ~= responseText and tonumber(curVersion) < tonumber(responseText) then
             print("\n###############################")
