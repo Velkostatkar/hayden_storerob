@@ -1,3 +1,7 @@
+-------------------------------------
+--/* Script Made by Hayden#6789 */ --
+------------------------------------- 
+
 Config = {}
 
 -- The keys aren't actually utilised, was more or so for testing
@@ -16,31 +20,35 @@ Keys = {
 Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
         ['id'] = 0, -- This is the ID the specific shop is assigned on ped creation, do not touch
-        ['Name'] = "Sandy Shop", -- This is the name of the shop shown on the alert
+        ['Name'] = "Sandy Store", -- This is the name of the shop shown on the alert
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1960.1, y = 3739.9, z = 31.3}, -- Coords of the ped
         ['Heading'] = 304.25, -- Heading of the ped
-        ['NetworkSync'] = true, -- Leave
+        ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1960.1, y = 3739.9, z = 31.0}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
+        ['pedC'] = 0,
     },
     [2] = {
         ['id'] = 0, -- This is the ID the specific shop is assigned on ped creation, do not touch
-        ['Name'] = "Paleto Shop",
+        ['Name'] = "Paleto Store",
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Coords of the ped
         ['Heading'] = 241.35, -- Heading of the ped
-        ['NetworkSync'] = true, -- Leave
+        ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
         ['BlipLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of blips for store
+        ['pedC'] = 0,
     },
 }
 
 Config.Blips = true -- Whether to show blips on map of the store or not
 Config.Key = 38 -- Actual FiveM key to start robbery (get it from https://docs.fivem.net/docs/game-references/controls/)
 Config.ContextKey = "E" -- THe Key that is shown as the key to start the robbery, this is just a UI benefit
+
+Config.ShowPlayer = true -- Whether or not when a player is robbing a store, a mugshot is posted of that player
 
 Config.Debug = true -- Debug prints to see if something goes wrong and where
 

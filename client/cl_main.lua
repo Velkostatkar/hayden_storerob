@@ -1,6 +1,7 @@
--- UI
--- Notifications
--- exports['mythic_notify']:SendAlert('type', 'message')
+-------------------------------------
+--/* Script Made by Hayden#6789 */ --
+------------------------------------- 
+
 ESX = nil
 local PlayerData = {}
 talking = false
@@ -16,7 +17,7 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	PlayerData.job = job
-	TriggerServerEvent('esx_jobnumbers:setjobnumbers', job)
+	TriggerServerEvent('hayden_store:countPolice', job)
 end)
 
 RegisterNetEvent('esx:playerLoaded')
@@ -41,7 +42,6 @@ CreateThread(function()
             distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
             ply = GetPlayerPed(-1)
             if distance < 3 then               
-                -- Draw Ped UI
                 if aiming then 
                     Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                     if IsControlJustPressed(0, Config.Key) then
@@ -63,12 +63,6 @@ AddEventHandler('hayden_store:cya', function(i)
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_GOODBYE", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
-RegisterNetEvent('hayden_store:stopAnim')
-AddEventHandler('hayden_store:stopAnim', function()
-    local pid = PlayerPedId()
-    ClearPedTasks(pid)
-end)
-
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)
     
@@ -86,29 +80,18 @@ end)
 RegisterNetEvent('hayden_store:callCops')
 AddEventHandler('hayden_store:callCops', function(i)
     local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(source)))
+    print(i)
+    local robB = AddBlipForCoord(Config.NPC[i]['Coords'].x,Config.NPC[i]['Coords'].y,Config.NPC[i]['Coords'].z)
+    SetBlipSprite(robB , 161)
+    SetBlipScale(robB , 2.0)
+    SetBlipColour(robB, 3)
+    PulseBlip(robB)
 
-   -- local blip = AddBlip(Config.NPC[i]['Coords'].xyz, 161, 3, Translation[Config.Language]["robbery"], 2.0)
-   -- PulseBlip(blip)
-
-	ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
-
+    ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
     UnregisterPedheadshot(mugshot)
 
-    while true do
-        Wait(0)
-
-        local name = GetCurrentResourceName() .. math.random(999)
-
-        AddTextEntry(name, '~INPUT_CONTEXT~ ' .. Translation[Config.Language]['set_waypoint'] .. '\n~INPUT_FRONTEND_RRIGHT~ ' .. Translation[Config.Language]['hide_box'])
-        DisplayHelpTextThisFrame(name, false)
-
-        if IsControlPressed(0, 38) then
-            SetNewWaypoint(Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y)
-            return
-        elseif IsControlPressed(0, 194) then
-            return
-        end
-    end
+    Wait(30*1000)
+    RemoveBlip(robB)
 end)
 
 RegisterNetEvent('hayden_store:clearTask')
@@ -117,6 +100,7 @@ AddEventHandler('hayden_store:clearTask', function(i)
 end)
 
 CreateThread(function()
+
     if Config.Blips then 
         for blipCreate = 1, #Config.NPC do
             local locationPos = Config.NPC[blipCreate]['BlipLoc']
@@ -136,21 +120,25 @@ CreateThread(function()
     end 
 
     -- This is probably a shit way of doing this
-    for i = 1, #Config.NPC do 
-        modelHash = GetHashKey(Config.NPC[i]['Hash'])
-        RequestModel(modelHash)
+        for i = 1, #Config.NPC do 
+            modelHash = GetHashKey(Config.NPC[i]['Hash'])
+            RequestModel(modelHash)
 
-        while not HasModelLoaded(modelHash) do
-            Wait(1)
+            while not HasModelLoaded(modelHash) do
+                Wait(1)
+            end
+
+            local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
+            SetEntityAsMissionEntity(created_ped, true, true)
+            FreezeEntityPosition(created_ped, true)
+            SetEntityInvincible(created_ped, true)
+            SetBlockingOfNonTemporaryEvents(created_ped, true)
+
+            Config.NPC[i]['id'] = created_ped
+        
+            if Config.Debug then 
+                print(Config.NPC[i]['id'])
+            end 
         end
-
-        created_ped = CreatePed(0, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], true)
-
-        FreezeEntityPosition(created_ped, true)
-        SetEntityInvincible(created_ped, true)
-        SetBlockingOfNonTemporaryEvents(created_ped, true)
-        Config.NPC[i]['id'] = created_ped
-        print(Config.NPC[i]['id'])
-    end
 
 end)

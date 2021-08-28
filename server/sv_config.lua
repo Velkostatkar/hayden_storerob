@@ -1,3 +1,7 @@
+-------------------------------------
+--/* Script Made by Hayden#6789 */ --
+------------------------------------- 
+
 Server = {}
 
 Server.payMax = 100 -- Min money given

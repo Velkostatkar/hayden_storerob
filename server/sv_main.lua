@@ -1,3 +1,7 @@
+-------------------------------------
+--/* Script Made by Hayden#6789 */ --
+------------------------------------- 
+
 ESX = nil
 tooFar = false 
 pcountPolice = 0
@@ -43,6 +47,7 @@ RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
     if not Config.NPC[i]['Robbed'] then
         print(pcountPolice)
+        print(i)
         if pcountPolice >= Server.RequiredCops then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['playerRobbing'], length = 2500 })
             TriggerClientEvent('hayden_store:npcAnim', source, i)
@@ -50,8 +55,8 @@ AddEventHandler('hayden_store:robClerk', function(i)
             TriggerEvent('hayden_store:beginRob', source, i)
 
             local xPlayers = ESX.GetPlayers()
-            for i = 1, #xPlayers do 
-                local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+            for cop = 1, #xPlayers do 
+                local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
                 if xPlayer.job.name == 'police' then 
                     TriggerClientEvent('hayden_store:callCops', source, i)
                 end 
