@@ -4,8 +4,13 @@
 
 ESX = nil
 local PlayerData = {}
-talk = false
-created = false
+textPos = {x = 0.4, y = 0.955 }
+rgb = {r = 255, g = 64, b = 64}
+alpha = 255
+size = 0.6
+font = 4
+display = false 
+actualTime = 0
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -134,4 +139,29 @@ CreateThread(function()
             end 
         end
 
+end)
+
+AddEventHandler('hayden_store:changeHud')
+RegisterNetEvent('hayden_store:changeHud', function(timer)
+    display = true 
+    actualTime = timer
+
+end)
+
+CreateThread(function(tim)
+    while true do 
+        Wait(0)
+        if display then 
+            SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
+            SetTextFont(font)
+            SetTextScale(size, size)
+            SetTextWrap(0.0, 1.0)
+            SetTextCentre(false)
+            SetTextDropshadow(2, 2, 0, 0, 0)
+            SetTextEdge(1, 0, 0, 0, 205)
+            SetTextEntry("STRING")
+            AddTextComponentString("Robbery in progress, time left : ".. actualTime)
+            DrawText(textPos.x, textPos.y)
+       end 
+    end 
 end)

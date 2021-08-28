@@ -5,6 +5,8 @@
 ESX = nil
 tooFar = false 
 pcountPolice = 0
+display = false
+
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
@@ -73,8 +75,10 @@ end)
 RegisterNetEvent('hayden_store:beginRob')
 AddEventHandler('hayden_store:beginRob', function(source, i)
     local timer = (Server.SetTimer * 1000)
+    display = true
     while true do 
         Wait(0)
+        
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
@@ -90,13 +94,13 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
             break  
         else 
             timer = timer - 50
-
+            TriggerClientEvent('hayden_store:changeHud', source, timer) 
             if timer <= 0 then
                 timer = 0 
                 if not tooFar then 
                     TriggerEvent('hayden_store:reward', source, i ) 
                     timer = 0 
-                    return false 
+                    return false, timer
                 end 
             end 
         end 
@@ -115,9 +119,13 @@ AddEventHandler('hayden_store:reward', function(source, i)
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:stopAnim', source)
             TriggerClientEvent('hayden_store:clearTask', source, i)
+            display = false 
+            TriggerClientEvent('hayden_store:changeHud', source, display )
             
             if Config.Debug then 
                 print("Player with ID " .. source .. " successfully robbed the store")
+                display = false 
+                TriggerClientEvent('hayden_store:hud', source, display)
             end 
 
         else 
