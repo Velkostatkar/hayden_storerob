@@ -6,5 +6,7 @@ If you find ANY exploits within the script, please directly contact me via my di
 This resource has ONLY been tested on ESX Legacy (update btw), and has been untested elsewhere
 # How to setup?
 You can set this resource up by simply downloading, and dragging and dropping into your server (then obviously starting it).
+# TO DO
+Network animations between player and ped
 # Support
 I offer some limited support via my discord server: https://discord.gg/gKKfSx3s2V
