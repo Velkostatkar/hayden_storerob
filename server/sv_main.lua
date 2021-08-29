@@ -76,8 +76,6 @@ AddEventHandler('hayden_store:robClerk', function(i, id)
                     print("Giving weapon to ped, chance is : " .. chance)
                 end
 
-                TriggerEvent('hayden_store:cooldown',i)
-
                 TriggerClientEvent('hayden_store:npcGun', source, i)
             end 
 

@@ -84,7 +84,7 @@ AddEventHandler('hayden_store:npcGun', function(i)
         TaskCombatPed(Config.NPC[i]['id'], GetPlayerPed(-1), 0, 16 )
 
         if IsPedDeadOrDying(Config.NPC[i]['id']) then 
-            DeleteEntity(Config.NPC[i]['id'])
+            TriggerServerEvent('hayden_store:cooldown',i)
             return false 
         end
 
@@ -93,7 +93,6 @@ end)
 
 RegisterNetEvent('hayden_store:checkNPC')
 AddEventHandler('hayden_store:checkNPC', function(i)
-    print("Passed")
     if IsPedDeadOrDying(Config.NPC[i]['id']) then 
         modelHash = GetHashKey(Config.NPC[i]['Hash'])
         RequestModel(modelHash)
