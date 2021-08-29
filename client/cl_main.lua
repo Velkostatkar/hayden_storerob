@@ -57,12 +57,6 @@ CreateThread(function()
                     end
                 end
             end
-
-            if IsPedDeadOrDying(Config.NPC[i]['id']) then
-                Wait(5000) 
-                TriggerEvent('hayden_store:checkNPC', i) 
-            end 
-
         end 
     end 
 end)

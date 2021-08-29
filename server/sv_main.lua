@@ -57,6 +57,19 @@ AddEventHandler('hayden_store:robClerk', function(i)
                 TriggerClientEvent('hayden_store:npcAnim', source, i)
 
                 TriggerEvent('hayden_store:beginRob', source, i)
+
+                local xPlayers = ESX.GetPlayers()
+                for cop = 1, #xPlayers do 
+                    local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
+                    if xPlayer.job.name == 'police' then 
+                        TriggerClientEvent('hayden_store:callCops', source, i)
+                    end 
+                end 
+    
+                if Config.Debug then 
+                    print("Player with ID " .. source .. " is robbing a store")
+                end 
+
             else 
                 if Config.Debug then 
                     print("Giving weapon to ped, chance is : " .. chance)
@@ -67,18 +80,6 @@ AddEventHandler('hayden_store:robClerk', function(i)
                 TriggerClientEvent('hayden_store:npcGun', source, i)
             end 
 
-            local xPlayers = ESX.GetPlayers()
-            for cop = 1, #xPlayers do 
-                local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
-                if xPlayer.job.name == 'police' then 
-                    TriggerClientEvent('hayden_store:callCops', source, i)
-                end 
-            end 
-
-            if Config.Debug then 
-                print("Player with ID " .. source .. " is robbing a store")
-            end 
-            
         else 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['no_cop'], length = 2500 })
         end 
