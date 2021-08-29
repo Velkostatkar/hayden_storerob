@@ -43,14 +43,29 @@ end
 
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i)  
+    chance = math.random(1, Server.AttackChance)
     if not Config.NPC[i]['Robbed'] then
-        print(pcountPolice)
-        print(i)
         if pcountPolice >= Server.RequiredCops then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['playerRobbing'], length = 2500 })
-            TriggerClientEvent('hayden_store:npcAnim', source, i)
             Config.NPC[i]['Robbed'] = true
-            TriggerEvent('hayden_store:beginRob', source, i)
+
+            if chance >= 5 then 
+                if Config.Debug then 
+                    print("Doing animation")
+                end 
+
+                TriggerClientEvent('hayden_store:npcAnim', source, i)
+
+                TriggerEvent('hayden_store:beginRob', source, i)
+            else 
+                if Config.Debug then 
+                    print("Giving weapon to ped, chance is : " .. chance)
+                end
+
+                TriggerEvent('hayden_store:cooldown',i)
+
+                TriggerClientEvent('hayden_store:npcGun', source, i)
+            end 
 
             local xPlayers = ESX.GetPlayers()
             for cop = 1, #xPlayers do 
@@ -111,21 +126,18 @@ RegisterNetEvent('hayden_store:reward')
 AddEventHandler('hayden_store:reward', function(source, i)
     pay = math.random(Server.payMax, Server.payMin)
     xPlayer = ESX.GetPlayerFromId(source)
-    -- Compare player coords
+
     if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['success'], length = 2500 })
             xPlayer.addAccountMoney('money', pay)
             TriggerEvent('hayden_store:cooldown', i)
-            TriggerClientEvent('hayden_store:stopAnim', source)
             TriggerClientEvent('hayden_store:clearTask', source, i)
             display = false 
             TriggerClientEvent('hayden_store:changeHud', source, display )
             
             if Config.Debug then 
                 print("Player with ID " .. source .. " successfully robbed the store")
-                display = false 
-                TriggerClientEvent('hayden_store:hud', source, display)
             end 
 
         else 
@@ -146,11 +158,14 @@ end)
 
 RegisterNetEvent('hayden_store:cooldown')
 AddEventHandler('hayden_store:cooldown', function(i)
+    src = source 
     Wait(Server.Cooldown * 1000)
+    print(i)
     Config.NPC[i]['Robbed'] = false 
+
+    TriggerClientEvent('hayden_store:checkNPC', -1, i)
 
     if Config.Debug then 
         print("The store has been refreshed, it can now be robbed again")
     end
-
 end)

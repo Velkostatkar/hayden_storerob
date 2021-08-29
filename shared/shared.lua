@@ -27,6 +27,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1960.1, y = 3739.9, z = 31.0}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
+        ['Weapon'] = GetHashKey('WEAPON_PISTOL'),
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
     },
     [2] = {
@@ -38,6 +39,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
+        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of blips for store
     },
 }
@@ -46,7 +48,7 @@ Config.Blips = true -- Whether to show blips on map of the store or not
 Config.Key = 38 -- Actual FiveM key to start robbery (get it from https://docs.fivem.net/docs/game-references/controls/)
 Config.ContextKey = "E" -- THe Key that is shown as the key to start the robbery, this is just a UI benefit
 
-Config.Debug = false -- Debug prints to see if something goes wrong and where
+Config.Debug = true -- Debug prints to see if something goes wrong and where
 
 Config.Language = 'en' -- Desired Language for translations, currently only english
 

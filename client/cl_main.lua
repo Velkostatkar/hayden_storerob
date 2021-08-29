@@ -34,7 +34,8 @@ CreateThread(function()
     while true do
         Wait(0) 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
-        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))       
+        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))  
+             
         for i = 1, #Config.NPC do 
             sX = Config.NPC[i]['Coords'].x
             sY = Config.NPC[i]['Coords'].y
@@ -48,14 +49,19 @@ CreateThread(function()
 
             if distance < 3 then
                 if IsPedArmed(PlayerPedId(), 7) then               
-                    if aiming then 
+                    if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
                         Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                         if IsControlJustPressed(0, Config.Key) then
                             TriggerServerEvent('hayden_store:robClerk', i)
                         end 
                     end
-                end 
+                end
             end
+
+            if IsPedDeadOrDying(Config.NPC[i]['id']) then
+                Wait(5000) 
+                TriggerEvent('hayden_store:checkNPC', i) 
+            end 
 
         end 
     end 
@@ -75,10 +81,47 @@ AddEventHandler('hayden_store:npcAnim', function(i)
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
+RegisterNetEvent('hayden_store:npcGun')
+AddEventHandler('hayden_store:npcGun', function(i)
+    GiveWeaponToPed(Config.NPC[i]['id'], Config.NPC[i]['Weapon'], 2000, false, true)
+    while true do 
+        Wait(1)
+        TaskCombatPed(Config.NPC[i]['id'], GetPlayerPed(-1), 0, 16 )
+
+        if IsPedDeadOrDying(Config.NPC[i]['id']) then 
+            return false 
+        end
+
+    end 
+end)
+
+RegisterNetEvent('hayden_store:checkNPC')
+AddEventHandler('hayden_store:checkNPC', function(i)
+    print("Passed")
+    if IsPedDeadOrDying(Config.NPC[i]['id']) then 
+        modelHash = GetHashKey(Config.NPC[i]['Hash'])
+        RequestModel(modelHash)
+
+        while not HasModelLoaded(modelHash) do
+            Wait(1)
+        end
+
+        local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
+        SetEntityAsMissionEntity(created_ped, true, true)
+        SetBlockingOfNonTemporaryEvents(created_ped, true)
+
+        Config.NPC[i]['id'] = created_ped
+    end
+end)
+
 RegisterNetEvent('hayden_store:callCops')
 AddEventHandler('hayden_store:callCops', function(i)
     local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(source)))
-    print(i)
+
+    if Config.Debug then 
+        print("Store with ID " .. i .. " is being robbed")
+    end
+
     local robB = AddBlipForCoord(Config.NPC[i]['Coords'].x,Config.NPC[i]['Coords'].y,Config.NPC[i]['Coords'].z)
     SetBlipSprite(robB , 161)
     SetBlipScale(robB , 2.0)
@@ -128,8 +171,6 @@ CreateThread(function()
 
             local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
             SetEntityAsMissionEntity(created_ped, true, true)
-            FreezeEntityPosition(created_ped, true)
-            SetEntityInvincible(created_ped, true)
             SetBlockingOfNonTemporaryEvents(created_ped, true)
 
             Config.NPC[i]['id'] = created_ped
