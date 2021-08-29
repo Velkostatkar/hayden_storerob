@@ -52,7 +52,8 @@ CreateThread(function()
                     if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
                         Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                         if IsControlJustPressed(0, Config.Key) then
-                            TriggerServerEvent('hayden_store:robClerk', i)
+                            id = Config.NPC[i]['id']
+                            TriggerServerEvent('hayden_store:robClerk', i, id)
                         end 
                     end
                 end
@@ -83,6 +84,7 @@ AddEventHandler('hayden_store:npcGun', function(i)
         TaskCombatPed(Config.NPC[i]['id'], GetPlayerPed(-1), 0, 16 )
 
         if IsPedDeadOrDying(Config.NPC[i]['id']) then 
+            DeleteEntity(Config.NPC[i]['id'])
             return false 
         end
 
