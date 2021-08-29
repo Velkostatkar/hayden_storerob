@@ -42,7 +42,7 @@ function hasWeapon()
 end 
 
 RegisterNetEvent('hayden_store:robClerk')
-AddEventHandler('hayden_store:robClerk', function(i)  
+AddEventHandler('hayden_store:robClerk', function(i, id)  
     chance = math.random(1, Server.AttackChance)
     if not Config.NPC[i]['Robbed'] then
         if pcountPolice >= Server.RequiredCops then 
@@ -56,7 +56,8 @@ AddEventHandler('hayden_store:robClerk', function(i)
 
                 TriggerClientEvent('hayden_store:npcAnim', source, i)
 
-                TriggerEvent('hayden_store:beginRob', source, i)
+                TriggerEvent('hayden_store:beginRob', source, i, id)
+                print(i)
 
                 local xPlayers = ESX.GetPlayers()
                 for cop = 1, #xPlayers do 
@@ -89,16 +90,15 @@ AddEventHandler('hayden_store:robClerk', function(i)
 end)
 
 RegisterNetEvent('hayden_store:beginRob')
-AddEventHandler('hayden_store:beginRob', function(source, i)
+AddEventHandler('hayden_store:beginRob', function(source, i, id)
     local timer = (Server.SetTimer * 1000)
     display = true
     while true do 
         Wait(0)
-        
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
-    
+
         sX = Config.NPC[i]['Coords'].x
         sY = Config.NPC[i]['Coords'].y
         sZ = Config.NPC[i]['Coords'].z
@@ -107,7 +107,7 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
         if (#pCoords - #sCoords) > 5 then 
             tooFar = true 
             print("Too far")  
-            break  
+            return false 
         else 
             timer = timer - 50
             TriggerClientEvent('hayden_store:changeHud', source, timer) 
@@ -121,6 +121,7 @@ AddEventHandler('hayden_store:beginRob', function(source, i)
             end 
         end 
     end 
+
 end)
 
 RegisterNetEvent('hayden_store:reward')
@@ -161,7 +162,6 @@ RegisterNetEvent('hayden_store:cooldown')
 AddEventHandler('hayden_store:cooldown', function(i)
     src = source 
     Wait(Server.Cooldown * 1000)
-    print(i)
     Config.NPC[i]['Robbed'] = false 
 
     TriggerClientEvent('hayden_store:checkNPC', -1, i)

@@ -19,7 +19,7 @@ Keys = {
 
 Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
-        ['id'] = 0, -- This is the ID the specific shop is assigned on ped creation, do not touch
+        ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Sandy Store", -- This is the name of the shop shown on the alert
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1960.1, y = 3739.9, z = 31.3}, -- Coords of the ped
@@ -31,7 +31,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
     },
     [2] = {
-        ['id'] = 0, -- This is the ID the specific shop is assigned on ped creation, do not touch
+        ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Paleto Store",
         ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
         ['Coords'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Coords of the ped
@@ -64,6 +64,7 @@ Translation = {
         ['recent'] = "This store has been robbed recently!",
         ['success'] = "You have successfully robbed the store!",
         ['nowep'] = "It appears you don't have the appropriate weaponry for this task!",
+        ['shotNPC'] = "You've shot the NPC, the robbery has been cancelled!",
     }
 }
 

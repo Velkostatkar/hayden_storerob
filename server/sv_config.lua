@@ -11,7 +11,7 @@ Server.Cooldown = 5 -- Seconds, how long cooldown b4 the same store can b robbed
 
 Server.RequiredCops = 1 -- Required cops to rob store
 Server.SetTimer = 5 -- IN seconds, how long it takes to rob
-Server.AttackChance = 1 -- Chance of the ped fighting back, higher the number = lower the chance (if the value his higher then 5 it'll do a normal rob, if it's lower then five it will attack)
+Server.AttackChance = 10 -- Chance of the ped fighting back, higher the number = lower the chance (if the value his higher then 5 it'll do a normal rob, if it's lower then five it will attack)
 
 Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE 
 -- If you're a dev and reading this, I use the IsPedArmed native on the client, I just double check via the server and a for loop to ensure that the ped actually has a weapon listed below
