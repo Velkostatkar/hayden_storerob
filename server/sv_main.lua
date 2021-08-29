@@ -54,7 +54,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id)
                     print("Doing animation")
                 end 
 
-                TriggerClientEvent('hayden_store:npcAnim', source, i)
+                TriggerClientEvent('hayden_store:npcAnim', -1, i)
 
                 TriggerEvent('hayden_store:beginRob', source, i, id)
                 print(i)
