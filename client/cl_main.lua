@@ -53,6 +53,10 @@ CreateThread(function()
                         Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                         if IsControlJustPressed(0, Config.Key) then
                             id = Config.NPC[i]['id']
+
+                            FreezeEntityPosition(Config.NPC[i]['id'], false)
+                            SetEntityInvincible(Config.NPC[i]['id'], false)
+
                             TriggerServerEvent('hayden_store:robClerk', i, id)
                         end 
                     end
@@ -109,6 +113,12 @@ AddEventHandler('hayden_store:checkNPC', function(i)
         SetBlockingOfNonTemporaryEvents(created_ped, true)
 
         Config.NPC[i]['id'] = created_ped
+
+        FreezeEntityPosition(Config.NPC[i]['id'], true)
+        SetEntityInvincible(Config.NPC[i]['id'], true)
+    else 
+        FreezeEntityPosition(Config.NPC[i]['id'], true)
+        SetEntityInvincible(Config.NPC[i]['id'], true)
     end
 end)
 
@@ -173,6 +183,9 @@ CreateThread(function()
 
             Config.NPC[i]['id'] = created_ped
         
+            FreezeEntityPosition(Config.NPC[i]['id'], true)
+            SetEntityInvincible(Config.NPC[i]['id'], true)
+
             if Config.Debug then 
                 print(Config.NPC[i]['id'])
             end 

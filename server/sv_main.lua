@@ -106,7 +106,7 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
             tooFar = true 
             print("Too far")  
             return false 
-        else 
+        else
             timer = timer - 50
             TriggerClientEvent('hayden_store:changeHud', source, timer) 
             if timer <= 0 then
