@@ -6,5 +6,8 @@ If you find ANY exploits within the script, please directly contact me via my di
 - Mythic Notify
 # How to setup?
 You can set this resource up by simply downloading, and dragging and dropping into your server (then obviously starting it).
+# Upcomding Features (Maybe)
+- Qtarget/bt-target support
+- Vault with minigame to rob
 # Support
 I offer some limited support via my discord server: https://discord.gg/gKKfSx3s2V
