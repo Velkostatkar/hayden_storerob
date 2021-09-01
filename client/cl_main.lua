@@ -30,7 +30,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
     TriggerServerEvent('hayden_store:countPolice')
 end)
 
-CreateThread(function()        
+CreateThread(function()   
     while true do
         Wait(0) 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
@@ -53,18 +53,17 @@ CreateThread(function()
                         Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                         if IsControlJustPressed(0, Config.Key) then
                             id = Config.NPC[i]['id']
-
                             FreezeEntityPosition(Config.NPC[i]['id'], false)
                             SetEntityInvincible(Config.NPC[i]['id'], false)
-
                             TriggerServerEvent('hayden_store:robClerk', i, id)
                         end 
                     end
                 end
             end
         end 
-    end 
+    end
 end)
+
 
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)
