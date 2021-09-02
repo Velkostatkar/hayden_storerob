@@ -21,9 +21,6 @@ end)
 
 CreateThread(function() 
     local ped = PlayerId(-1)
-
-    print("Player ID: " .. ped)
-
     while true do
         Wait(0) 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
@@ -53,6 +50,20 @@ CreateThread(function()
                     end
                 end
             end
+
+            if display and actualTime ~= false and actualTime ~= true then 
+                SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
+                SetTextFont(font)
+                SetTextScale(size, size)
+                SetTextWrap(0.0, 1.0)
+                SetTextCentre(false)
+                SetTextDropshadow(2, 2, 0, 0, 0)
+                SetTextEdge(1, 0, 0, 0, 205)
+                SetTextEntry("STRING")
+                AddTextComponentString("Robbery in progress, time left : ".. actualTime)
+                DrawText(textPos.x, textPos.y)
+           end
+
         end 
     end
 end)
@@ -190,22 +201,4 @@ RegisterNetEvent('hayden_store:changeHud', function(timer)
     display = true 
     actualTime = timer
 
-end)
-
-CreateThread(function(tim)
-    while true do 
-        Wait(0)
-        if display and actualTime ~= false and actualTime ~= true then 
-            SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
-            SetTextFont(font)
-            SetTextScale(size, size)
-            SetTextWrap(0.0, 1.0)
-            SetTextCentre(false)
-            SetTextDropshadow(2, 2, 0, 0, 0)
-            SetTextEdge(1, 0, 0, 0, 205)
-            SetTextEntry("STRING")
-            AddTextComponentString("Robbery in progress, time left : ".. actualTime)
-            DrawText(textPos.x, textPos.y)
-       end
-    end 
 end)

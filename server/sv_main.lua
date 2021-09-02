@@ -95,7 +95,6 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
             
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['tooFar'], length = 2500 })
 
-            
             return false 
         else
             timer = timer - 50
