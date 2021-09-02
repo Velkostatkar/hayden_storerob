@@ -42,14 +42,17 @@ function hasWeapon()
 end 
 
 RegisterNetEvent('hayden_store:robClerk')
-AddEventHandler('hayden_store:robClerk', function(i, id)  
+AddEventHandler('hayden_store:robClerk', function(i, id, ped)  
     chance = math.random(1, Server.AttackChance)
     if not Config.NPC[i]['Robbed'] then
         if pcountPolice >= Server.RequiredCops then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['playerRobbing'], length = 2500 })
             Config.NPC[i]['Robbed'] = true
 
+            Config.NPC[i]['playerPed'] = ped
+
             if chance >= 5 then 
+                
                 if Config.Debug then 
                     print("Doing animation")
                 end 
@@ -63,7 +66,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id)
                 for cop = 1, #xPlayers do 
                     local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
                     if xPlayer.job.name == 'police' then 
-                        TriggerClientEvent('hayden_store:callCops', -1, i)
+                        TriggerClientEvent('hayden_store:callCops', -1, i, ped)
                     end 
                 end 
     
@@ -171,6 +174,9 @@ AddEventHandler('hayden_store:cooldown', function(i)
     Config.NPC[i]['Robbed'] = false 
 
     TriggerClientEvent('hayden_store:checkNPC', -1, i)
+
+    Config.NPC[i]['playerPed'] = nil
+
 
     if Config.Debug then 
         print("The store has been refreshed, it can now be robbed again")

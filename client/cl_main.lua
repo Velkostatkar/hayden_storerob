@@ -30,7 +30,11 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
     TriggerServerEvent('hayden_store:countPolice')
 end)
 
-CreateThread(function()   
+CreateThread(function() 
+    local ped = PlayerId(-1)
+
+    print("Player ID: " .. ped)
+
     while true do
         Wait(0) 
         pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
@@ -55,7 +59,7 @@ CreateThread(function()
                             id = Config.NPC[i]['id']
                             FreezeEntityPosition(Config.NPC[i]['id'], false)
                             SetEntityInvincible(Config.NPC[i]['id'], false)
-                            TriggerServerEvent('hayden_store:robClerk', i, id)
+                            TriggerServerEvent('hayden_store:robClerk', i, id, ped)
                         end 
                     end
                 end
@@ -122,8 +126,8 @@ AddEventHandler('hayden_store:checkNPC', function(i)
 end)
 
 RegisterNetEvent('hayden_store:callCops')
-AddEventHandler('hayden_store:callCops', function(i)
-    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(source)))
+AddEventHandler('hayden_store:callCops', function(i, ped)
+    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(ped)))
 
     if Config.Debug then 
         print("Store with ID " .. i .. " is being robbed")
