@@ -1,17 +1,22 @@
-fx_version 'adamant'
+fx_version 'cerulean'
 
 game 'gta5'
 author 'Hayden'
 version '0.0.1'
 
-server_scripts {
-	'@async/async.lua',
-	'@mysql-async/lib/MySQL.lua',
-	'server/*.lua',
+shared_scripts {
 	'shared/*.lua'
+}
+
+server_scripts {
+	'server/*.lua',
 }
 
 client_scripts {
 	'client/*.lua',
-	'shared/*.lua'
+}
+
+dependancies {
+	'es_extended',
+	'mythic_notify'
 }

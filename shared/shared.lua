@@ -4,126 +4,113 @@
 
 Config = {}
 
--- The keys aren't actually utilised, was more or so for testing
-Keys = {
-    ["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57,
-    ["~"] = 243, ["1"] = 157, ["2"] = 158, ["3"] = 160, ["4"] = 164, ["5"] = 165, ["6"] = 159, ["7"] = 161, ["8"] = 162, ["9"] = 163, ["-"] = 84, ["="] = 83, ["BACKSPACE"] = 177,
-    ["TAB"] = 37, ["Q"] = 44, ["W"] = 32, ["E"] = 38, ["R"] = 45, ["T"] = 245, ["Y"] = 246, ["U"] = 303, ["P"] = 199, ["["] = 39, ["]"] = 40, ["ENTER"] = 18,
-    ["CAPS"] = 137, ["A"] = 34, ["S"] = 8, ["D"] = 9, ["F"] = 23, ["G"] = 47, ["H"] = 74, ["K"] = 311, ["L"] = 182,
-    ["LEFTSHIFT"] = 21, ["Z"] = 20, ["X"] = 73, ["C"] = 26, ["V"] = 0, ["B"] = 29, ["N"] = 249, ["M"] = 244, [","] = 82, ["."] = 81,
-    ["LEFTCTRL"] = 36, ["LEFTALT"] = 19, ["SPACE"] = 22, ["RIGHTCTRL"] = 70,
-    ["HOME"] = 213, ["PAGEUP"] = 10, ["PAGEDOWN"] = 11, ["DELETE"] = 178,
-    ["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173,
-    ["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
-}
-
 Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Sandy Store", -- This is the name of the shop shown on the alert
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1960.1, y = 3739.9, z = 31.3}, -- Coords of the ped
         ['Heading'] = 304.25, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1960.1, y = 3739.9, z = 31.0}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'),
+        ['Weapon'] = `WEAPON_PISTOL`,
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
     },
     [2] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Paleto Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Coords of the ped
         ['Heading'] = 241.35, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of blips for store
     },
     [3] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Grape Seed Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1698.2, y = 4922.8, z = 41.1}, -- Coords of the ped
         ['Heading'] = 317.21, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1698.2, y = 4922.8, z = 41.1}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(1698.2, 4922.8,42.1), -- Location of blips for store
     },
     [4] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Sandy Shores road Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1392.84, y = 3606.58, z = 33.98}, -- Coords of the ped
         ['Heading'] = 200.06, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1392.84, y = 3606.58, z = 33.98}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(1392.84,3606.58, 34.98), -- Location of blips for store
     },
     [5] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Route 68 Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1165.94, y = 2710.8, z = 37.16}, -- Coords of the ped
         ['Heading'] = 200.06, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 1165.94, y = 2710.8, z = 37.16}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(1165.94, 2710.8, 38.16), -- Location of blips for store
     },
     [6] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Route 68 Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 549.39, y = 2668.98, z = 41.16}, -- Coords of the ped
         ['Heading'] = 98.97, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 549.39, y = 2668.98, z = 41.16}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3( 549.39, 2668.98, 42.16), -- Location of blips for store
     },
     [7] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Senora Freeway Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 2676.02, y = 3280.57, z = 54.24}, -- Coords of the ped
         ['Heading'] = 331.35, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = 2676.02, y = 3280.57, z = 54.24}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3( 2676.02,  3280.57,54.24), -- Location of blips for store
     },
     [8] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "North Rockford Drive",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = -1820.27, y = 794.3, z = 137.09}, -- Coords of the ped
         ['Heading'] = 128.8, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = -1820.27, y = 794.3, z = 137.09}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(-1820.27, 794.3, 137.09), -- Location of blips for store
     },
     [9] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Great Ocean Hwy",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = -3244.53, y = 1000.15, z = 11.83}, -- Coords of the ped
         ['Heading'] = 348.84, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
         ['TextLoc'] = {x = -3244.53, y = 1000.15, z = 11.83}, -- Location of where you want the text to show on the shop keeper
         ['Robbed'] = false, -- Do not touch
-        ['Weapon'] = GetHashKey('WEAPON_PISTOL'), -- The weapon the ped will pull out 
+        ['Weapon'] = `WEAPON_PISTOL`, -- The weapon the ped will pull out 
         ['BlipLoc'] = vector3(-3244.53,1000.15, 11.83), -- Location of blips for store
     },
 }

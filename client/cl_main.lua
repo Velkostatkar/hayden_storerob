@@ -20,24 +20,20 @@ Citizen.CreateThread(function()
 end)
 
 CreateThread(function() 
-    local ped = PlayerId(-1)
+    local ped = PlayerId()
     while true do
         Wait(0) 
-        pX, pY, pZ = table.unpack(GetEntityCoords(PlayerPedId(), true))
-        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId(-1))  
+        pCoords = GetEntityCoords(PlayerPedId())
+        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId())  
              
         for i = 1, #Config.NPC do 
-            sX = Config.NPC[i]['Coords'].x
-            sY = Config.NPC[i]['Coords'].y
-            sZ = Config.NPC[i]['Coords'].z
+            npcCoords = vector3(Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z)
             
             tL = Config.NPC[i]['TextLoc'].x
             tL2 = Config.NPC[i]['TextLoc'].y
             tL3 = Config.NPC[i]['TextLoc'].z
 
-            distance = GetDistanceBetweenCoords(pX,pY,pZ,sX,sY,sZ, false)
-
-            if distance < 3 then
+            if #(pCoords - npcCoords) < 3 then
                 if IsPedArmed(PlayerPedId(), 7) then               
                     if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
                         Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
@@ -71,15 +67,18 @@ end)
 
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)
+    local dict = "oddjobs@shop_robbery@rob_till"
     
-    if not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") then
-        RequestAnimDict("oddjobs@shop_robbery@rob_till")
-        while not HasAnimDictLoaded("oddjobs@shop_robbery@rob_till") do
-            Wait(0)
+    if not HasAnimDictLoaded(dict) then
+        RequestAnimDict(dict)
+        while not HasAnimDictLoaded(dict) do
+            Wait(100)
         end
     end
 
-    TaskPlayAnim(Config.NPC[i]['id'], "oddjobs@shop_robbery@rob_till", "loop", 8.0, -8.0, -1, 1, 0, false, false, false)
+    TaskPlayAnim(Config.NPC[i]['id'], dict, "loop", 8.0, -8.0, -1, 1, 0, false, false, false)
+    RemoveAnimDict(dict)
+
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
 end)
 
@@ -88,7 +87,7 @@ AddEventHandler('hayden_store:npcGun', function(i)
     GiveWeaponToPed(Config.NPC[i]['id'], Config.NPC[i]['Weapon'], 2000, false, true)
     while true do 
         Wait(1)
-        TaskCombatPed(Config.NPC[i]['id'], GetPlayerPed(-1), 0, 16 )
+        TaskCombatPed(Config.NPC[i]['id'], PlayerPedId(), 0, 16 )
 
         SetPedDropsWeaponsWhenDead(Config.NPC[i]['id'], false)
         
@@ -104,11 +103,11 @@ RegisterNetEvent('hayden_store:checkNPC')
 AddEventHandler('hayden_store:checkNPC', function(i)
     if IsPedDeadOrDying(Config.NPC[i]['id']) then 
         DeleteEntity(Config.NPC[i]['id'])
-        modelHash = GetHashKey(Config.NPC[i]['Hash'])
+        modelHash = Config.NPC[i]['Hash']
         RequestModel(modelHash)
 
         while not HasModelLoaded(modelHash) do
-            Wait(1)
+            Wait(100)
         end
 
         local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
@@ -173,7 +172,7 @@ CreateThread(function()
 
     -- This is probably a shit way of doing this
         for i = 1, #Config.NPC do 
-            modelHash = GetHashKey(Config.NPC[i]['Hash'])
+            modelHash = Config.NPC[i]['Hash']
             RequestModel(modelHash)
 
             while not HasModelLoaded(modelHash) do
