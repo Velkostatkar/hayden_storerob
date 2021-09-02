@@ -149,7 +149,23 @@ Translation = {
         ['success'] = "You have successfully robbed the store!",
         ['nowep'] = "It appears you don't have the appropriate weaponry for this task!",
         ['shotNPC'] = "You've shot the NPC, the robbery has been cancelled!",
-    }
+        ['tooFar'] = "You've gone too far from the store! Robbery cancelled!",
+    },
+
+    ['de'] = {
+        ['robbing'] = "Alarm wurde ausgelöst",
+        ['cop_msg'] = "In einem Geschäft wurde Alarm ausgelöst, CCTV hat das Gesicht des Kriminellen erfasst!",
+        ['set_waypoint'] = "Wegpunkt zum Store setzen",
+        ['hide_box'] = "Schließen Sie dieses Feld",
+        ['playerRobbing'] = "Sie rauben jetzt den Laden aus! Halten Sie Ihre Waffe gerichtet!",
+        ['robbery'] = "Ladenraub",
+        ['no_cop'] = "Nicht genug Polizisten im Dienst, um den Laden auszurauben!",
+        ['recent'] = "Dieser Laden wurde vor kurzem ausgeraubt!",
+        ['success'] = "Sie haben den Laden erfolgreich ausgeraubt!",
+        ['nowep'] = "Es scheint, dass Sie nicht über die entsprechenden Waffen für diese Aufgabe verfügen!",
+        ['shotNPC'] = "Du hast den NPC erschossen, der Raub wurde abgesagt!",
+        ['tooFar'] = "Du bist zu weit vom Laden entfernt! Raubüberfall abgesagt!",
+    },
 }
 
 

@@ -102,9 +102,17 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
         sZ = Config.NPC[i]['Coords'].z
         sCoords = vector3(sX, sY, sZ)
 
-        if (#pCoords - #sCoords) > 5 then 
+        if #(pCoords - sCoords) > 5 then 
             tooFar = true 
-            print("Too far")  
+            print("Too far")
+            TriggerEvent('hayden_store:cooldown', i)
+            TriggerClientEvent('hayden_store:clearTask', source, i)
+            display = false 
+            TriggerClientEvent('hayden_store:changeHud', source, display )
+            
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['tooFar'], length = 2500 })
+
+            
             return false 
         else
             timer = timer - 50
