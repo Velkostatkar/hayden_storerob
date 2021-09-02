@@ -16,7 +16,7 @@ Server.AttackChance = 100 -- Chance of the ped fighting back, higher the number 
 Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE 
 -- If you're a dev and reading this, I use the IsPedArmed native on the client, I just double check via the server and a for loop to ensure that the ped actually has a weapon listed below
 -- Do not hate me for being safe :)
-    `WEAPON_PISTOL`,
+    `weapon_pistol`,
     `weapon_pistol_mk2`,
     `weapon_combatpistol`,
     `weapon_appistol`,
