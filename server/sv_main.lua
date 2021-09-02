@@ -10,29 +10,6 @@ display = false
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-AddEventHandler('playerDropped', function()
-    TriggerEvent('hayden_store:countPolice')
-end)
-
--- This is the actual functionality behind counting police
-RegisterNetEvent('hayden_store:countPolice')
-AddEventHandler('hayden_store:countPolice', function(source)
-	local xPlayers = ESX.GetPlayers()
- 	pcountPolice = 0
-
-    for i=1, #xPlayers, 1 do
-        local Player = ESX.GetPlayerFromId(xPlayers[i])
-        if Player.job.name == 'police' then
-           pcountPolice = pcountPolice + 1
-        end
-    end
-
-    if Config.Debug then 
-        print("Cop count updated, current cop count is: " .. pcountPolice)
-    end
-
-end)
-
 function hasWeapon()
     for k,v in pairs(Server.RobWeapons) do 
         if GetSelectedPedWeapon(plyPed) == v then 
@@ -44,8 +21,9 @@ end
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i, id, ped)  
     chance = math.random(1, Server.AttackChance)
+    local xPlayers = ESX.GetExtendedPlayers('job', 'police')
     if not Config.NPC[i]['Robbed'] then
-        if pcountPolice >= Server.RequiredCops then 
+        if #xPlayers >= Server.RequiredCops then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['playerRobbing'], length = 2500 })
             Config.NPC[i]['Robbed'] = true
 
@@ -94,12 +72,14 @@ RegisterNetEvent('hayden_store:beginRob')
 AddEventHandler('hayden_store:beginRob', function(source, i, id)
     local timer = (Server.SetTimer * 1000)
     display = true
+
     while true do 
         Wait(0)
+
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
-
+    
         sX = Config.NPC[i]['Coords'].x
         sY = Config.NPC[i]['Coords'].y
         sZ = Config.NPC[i]['Coords'].z

@@ -19,17 +19,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-	PlayerData.job = job
-	TriggerServerEvent('hayden_store:countPolice', job)
-end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-    TriggerServerEvent('hayden_store:countPolice')
-end)
-
 CreateThread(function() 
     local ped = PlayerId(-1)
 
