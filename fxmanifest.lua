@@ -1,15 +1,17 @@
-fx_version 'adamant'
+fx_version 'cerulean'
 
 game 'gta5'
 author 'Hayden'
 version '0.0.1'
 
+shared_scripts {
+	'shared/*.lua'
+}
+
 server_scripts {
 	'server/*.lua',
-	'shared/*.lua'
 }
 
 client_scripts {
 	'client/*.lua',
-	'shared/*.lua'
 }
