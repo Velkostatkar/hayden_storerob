@@ -103,7 +103,7 @@ RegisterNetEvent('hayden_store:checkNPC')
 AddEventHandler('hayden_store:checkNPC', function(i)
     if IsPedDeadOrDying(Config.NPC[i]['id']) then 
         DeleteEntity(Config.NPC[i]['id'])
-        modelHash = GetHashKey(Config.NPC[i]['Hash'])
+        modelHash = Config.NPC[i]['Hash']
         RequestModel(modelHash)
 
         while not HasModelLoaded(modelHash) do
@@ -172,7 +172,7 @@ CreateThread(function()
 
     -- This is probably a shit way of doing this
         for i = 1, #Config.NPC do 
-            modelHash = GetHashKey(Config.NPC[i]['Hash'])
+            modelHash = Config.NPC[i]['Hash']
             RequestModel(modelHash)
 
             while not HasModelLoaded(modelHash) do

@@ -8,7 +8,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [1] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Sandy Store", -- This is the name of the shop shown on the alert
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1960.1, y = 3739.9, z = 31.3}, -- Coords of the ped
         ['Heading'] = 304.25, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -20,7 +20,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [2] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Paleto Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1728.92, y = 6417.29, z = 34.04}, -- Coords of the ped
         ['Heading'] = 241.35, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -32,7 +32,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [3] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Grape Seed Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1698.2, y = 4922.8, z = 41.1}, -- Coords of the ped
         ['Heading'] = 317.21, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -44,7 +44,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [4] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Sandy Shores road Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1392.84, y = 3606.58, z = 33.98}, -- Coords of the ped
         ['Heading'] = 200.06, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -56,7 +56,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [5] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Route 68 Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 1165.94, y = 2710.8, z = 37.16}, -- Coords of the ped
         ['Heading'] = 200.06, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -68,7 +68,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [6] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Route 68 Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 549.39, y = 2668.98, z = 41.16}, -- Coords of the ped
         ['Heading'] = 98.97, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -80,7 +80,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [7] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Senora Freeway Store",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = 2676.02, y = 3280.57, z = 54.24}, -- Coords of the ped
         ['Heading'] = 331.35, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -92,7 +92,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [8] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "North Rockford Drive",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = -1820.27, y = 794.3, z = 137.09}, -- Coords of the ped
         ['Heading'] = 128.8, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
@@ -104,7 +104,7 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
     [9] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
         ['Name'] = "Great Ocean Hwy",
-        ['Hash'] = "mp_m_shopkeep_01", -- Hash of the shop keeper ped
+        ['Hash'] = `mp_m_shopkeep_01`, -- Hash of the shop keeper ped
         ['Coords'] = {x = -3244.53, y = 1000.15, z = 11.83}, -- Coords of the ped
         ['Heading'] = 348.84, -- Heading of the ped
         ['NetworkSync'] = false, -- Leave
