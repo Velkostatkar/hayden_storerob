@@ -1,7 +1,7 @@
-
 function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
-    local px,py,pz=table.unpack(GetGameplayCamCoords())
-    local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)    
+    local pCoords = GetGameplayCamCoords()
+    local npcCoords = vector3(x,y,z)
+    local dist = #(pCoords - npcCoords) 
     local scale = (1/dist)*10
     local fov = (1/GetGameplayCamFov())*100
     local scale = scale*fov   
