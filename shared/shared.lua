@@ -119,7 +119,7 @@ Config.Blips = true -- Whether to show blips on map of the store or not
 Config.Key = 38 -- Actual FiveM key to start robbery (get it from https://docs.fivem.net/docs/game-references/controls/)
 Config.ContextKey = "E" -- THe Key that is shown as the key to start the robbery, this is just a UI benefit
 
-Config.Debug = true -- Debug prints to see if something goes wrong and where
+Config.Debug = false -- Debug prints to see if something goes wrong and where
 
 Config.Language = 'en' -- Desired Language for translations, currently only english
 
