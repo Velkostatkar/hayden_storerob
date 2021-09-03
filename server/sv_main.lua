@@ -121,7 +121,7 @@ AddEventHandler('hayden_store:reward', function(source, i)
     if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['success'], length = 2500 })
-            xPlayer.addAccountMoney('money', pay)
+            xPlayer.addAccountMoney('black_money', pay)
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:clearTask', source, i)
             display = false 
