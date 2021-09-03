@@ -20,23 +20,18 @@ Citizen.CreateThread(function()
 end)
 
 CreateThread(function() 
-    local ped = PlayerId()
     while true do
-        Wait(0) 
-        pCoords = GetEntityCoords(PlayerPedId())
+        Citizen.Wait(0) 
+        pCoords = GetEntityCoords(ESX.PlayerData.ped)
         aiming = GetEntityPlayerIsFreeAimingAt(PlayerId())  
              
         for i = 1, #Config.NPC do 
-            npcCoords = vector3(Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z)
-            
-            tL = Config.NPC[i]['TextLoc'].x
-            tL2 = Config.NPC[i]['TextLoc'].y
-            tL3 = Config.NPC[i]['TextLoc'].z
+            npcCoords = Config.NPC[i]['Coords']
 
             if #(pCoords - npcCoords) < 3 then
-                if IsPedArmed(PlayerPedId(), 7) then               
+                if IsPedArmed(ESX.PlayerData.ped, 7) then               
                     if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
-                        Draw3DText( tL, tL2 , tL3, "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
+                        Draw3DText( Config.NPC[i]['TextLoc'], "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
                         if IsControlJustPressed(0, Config.Key) then
                             id = Config.NPC[i]['id']
                             FreezeEntityPosition(Config.NPC[i]['id'], false)
@@ -86,8 +81,8 @@ RegisterNetEvent('hayden_store:npcGun')
 AddEventHandler('hayden_store:npcGun', function(i)
     GiveWeaponToPed(Config.NPC[i]['id'], Config.NPC[i]['Weapon'], 2000, false, true)
     while true do 
-        Wait(1)
-        TaskCombatPed(Config.NPC[i]['id'], PlayerPedId(), 0, 16 )
+        Citizen.Wait(1)
+        TaskCombatPed(Config.NPC[i]['id'], ESX.PlayerData.ped, 0, 16 )
 
         SetPedDropsWeaponsWhenDead(Config.NPC[i]['id'], false)
         
@@ -107,7 +102,7 @@ AddEventHandler('hayden_store:checkNPC', function(i)
         RequestModel(modelHash)
 
         while not HasModelLoaded(modelHash) do
-            Wait(100)
+            Citizen.Wait(100)
         end
 
         local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
@@ -141,7 +136,7 @@ AddEventHandler('hayden_store:callCops', function(i, ped)
     ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
     UnregisterPedheadshot(mugshot)
 
-    Wait(30*1000)
+    Citizen.Wait(30*1000)
     RemoveBlip(robB)
 end)
 
@@ -176,7 +171,7 @@ CreateThread(function()
             RequestModel(modelHash)
 
             while not HasModelLoaded(modelHash) do
-                Wait(1)
+                Citizen.Wait(1)
             end
 
             local created_ped = CreatePed(4, modelHash , Config.NPC[i]['Coords'].x, Config.NPC[i]['Coords'].y, Config.NPC[i]['Coords'].z, Config.NPC[i]['Heading'], Config.NPC[i]['NetworkSync'], false)
@@ -199,5 +194,4 @@ AddEventHandler('hayden_store:changeHud')
 RegisterNetEvent('hayden_store:changeHud', function(timer)
     display = true 
     actualTime = timer
-
 end)
