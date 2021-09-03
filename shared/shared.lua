@@ -153,6 +153,21 @@ Translation = {
         ['shotNPC'] = "Du hast den NPC erschossen, der Raub wurde abgesagt!",
         ['tooFar'] = "Du bist zu weit vom Laden entfernt! Raubüberfall abgesagt!",
     },
+
+    ['it'] = {
+        ['robbing'] = "L'allarme è stato attivato",
+        ['cop_msg'] = "È scattato l'allarme in un negozio, le telecamere hanno fotografato i criminali!",
+        ['set_waypoint'] = "Imposta il punto sul gps per il negozio",
+        ['hide_box'] = "Chiudi questa finestra",
+        ['playerRobbing'] = "Stai derubando il negozio! Tieni l'arma puntata!",
+        ['robbery'] = "Rapina al negozio",
+        ['no_cop'] = "Non ci sono abbastanza poliziotti per derubare il negozio!",
+        ['recent'] = "Questo negozio è stato derubato di recente!",
+        ['success'] = "Hai derubato il negozio con successo!",
+        ['nowep'] = "Sembra che tu non abbia l'arma adatta per questa rapina!",
+        ['shotNPC'] = "Hai sparato al negoziante, la rapina è annullata!",
+        ['tooFar'] = "Sei andato troppo lontano dal negozio, la rapina è annullata!",
+    },
 }
 
 
