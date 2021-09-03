@@ -20,7 +20,8 @@ end
 
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i, id, ped)  
-    chance = math.random(1, Server.AttackChance)
+    math.randomseed(os.time())
+    chance = math.random(1, 100)
     local xPlayers = ESX.GetExtendedPlayers('job', 'police')
     if not Config.NPC[i]['Robbed'] then
         if #xPlayers >= Server.RequiredCops then 
@@ -29,7 +30,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
 
             Config.NPC[i]['playerPed'] = ped
 
-            if chance >= 5 then 
+            if chance >= Server.AttackChance then 
                 
                 if Config.Debug then 
                     print("Doing animation")
