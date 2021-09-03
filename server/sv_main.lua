@@ -39,7 +39,6 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
                 TriggerClientEvent('hayden_store:npcAnim', -1, i)
 
                 TriggerEvent('hayden_store:beginRob', source, i, id)
-                print(i)
 
                 local xPlayers = ESX.GetPlayers()
                 for cop = 1, #xPlayers do 
@@ -80,15 +79,15 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
-    
-        sX = Config.NPC[i]['Coords'].x
-        sY = Config.NPC[i]['Coords'].y
-        sZ = Config.NPC[i]['Coords'].z
-        sCoords = vector3(sX, sY, sZ)
+        sCoords = Config.NPC[i]['Coords']
 
         if #(pCoords - sCoords) > 5 then 
             tooFar = true 
-            print("Too far")
+
+            if Config.Debug then 
+                print("Too far")
+            end
+            
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:clearTask', source, i)
             display = false 
