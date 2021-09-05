@@ -4,18 +4,25 @@
 
 Server = {}
 
-Server.payMax = 100 -- Min money given
-Server.payMin = 150 -- Max Money given
+Server.payMax = 20000 -- Minimum robbery payout
+Server.payMin = 25000 -- Maximum robbery payout
 
-Server.Cooldown = 5 -- Seconds, how long cooldown b4 the same store can b robbed
+-- Time before a store can be robbed again (seconds)
+Server.Cooldown = 1500
 
-Server.RequiredCops = 1 -- Required cops to rob store
-Server.SetTimer = 5 -- IN seconds, how long it takes to rob
-Server.AttackChance = 100 -- Chance of the ped fighting back, higher the number = lower the chance (if the value his higher then 5 it'll do a normal rob, if it's lower then five it will attack)
+-- Time for the robbery to complete (seconds)
+Server.SetTimer = 300 
 
-Server.RobWeapons = { -- WEAPONS THAT CAN ROB THE STORE 
--- If you're a dev and reading this, I use the IsPedArmed native on the client, I just double check via the server and a for loop to ensure that the ped actually has a weapon listed below
--- Do not hate me for being safe :)
+ -- Required online cops to rob a store
+Server.RequiredCops = 2
+
+-- Chance for the store owner to fight back (percentage)
+Server.AttackChance = 5
+
+-- Allowed Weapons for the robbery to start
+Server.RobWeapons = {
+
+    -- Pistols
     `weapon_pistol`,
     `weapon_pistol_mk2`,
     `weapon_combatpistol`,

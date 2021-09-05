@@ -1,6 +1,6 @@
-function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
+function Draw3DText(coords,textInput,fontId,scaleX,scaleY)
     local pCoords = GetGameplayCamCoords()
-    local npcCoords = vector3(x,y,z)
+    local npcCoords = coords
     local dist = #(pCoords - npcCoords) 
     local scale = (1/dist)*10
     local fov = (1/GetGameplayCamFov())*100
@@ -16,7 +16,7 @@ function Draw3DText(x,y,z,textInput,fontId,scaleX,scaleY)
     SetTextEntry("STRING")
     SetTextCentre(1)
     AddTextComponentString(textInput)
-    SetDrawOrigin(x,y,z+2, 0)
+    SetDrawOrigin(npcCoords[1],npcCoords[2],npcCoords[3]+2.3, 0)
     DrawText(0.0, 0.0)
     ClearDrawOrigin()
 end

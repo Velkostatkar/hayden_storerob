@@ -20,7 +20,8 @@ end
 
 RegisterNetEvent('hayden_store:robClerk')
 AddEventHandler('hayden_store:robClerk', function(i, id, ped)  
-    chance = math.random(1, Server.AttackChance)
+    math.randomseed(os.time())
+    chance = math.random(1, 100)
     local xPlayers = ESX.GetExtendedPlayers('job', 'police')
     if not Config.NPC[i]['Robbed'] then
         if #xPlayers >= Server.RequiredCops then 
@@ -29,7 +30,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
 
             Config.NPC[i]['playerPed'] = ped
 
-            if chance >= 5 then 
+            if chance >= Server.AttackChance then 
                 
                 if Config.Debug then 
                     print("Doing animation")
@@ -38,7 +39,6 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
                 TriggerClientEvent('hayden_store:npcAnim', -1, i)
 
                 TriggerEvent('hayden_store:beginRob', source, i, id)
-                print(i)
 
                 local xPlayers = ESX.GetPlayers()
                 for cop = 1, #xPlayers do 
@@ -79,15 +79,15 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
         ply = source 
         plyPed = GetPlayerPed(ply)
         pCoords = GetEntityCoords(plyPed)
-    
-        sX = Config.NPC[i]['Coords'].x
-        sY = Config.NPC[i]['Coords'].y
-        sZ = Config.NPC[i]['Coords'].z
-        sCoords = vector3(sX, sY, sZ)
+        sCoords = Config.NPC[i]['Coords']
 
         if #(pCoords - sCoords) > 5 then 
             tooFar = true 
-            print("Too far")
+
+            if Config.Debug then 
+                print("Too far")
+            end
+            
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:clearTask', source, i)
             display = false 
@@ -120,7 +120,7 @@ AddEventHandler('hayden_store:reward', function(source, i)
     if (#pCoords - #sCoords) < 10 then
         if hasWeapon() then 
             TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['success'], length = 2500 })
-            xPlayer.addAccountMoney('money', pay)
+            xPlayer.addAccountMoney('black_money', pay)
             TriggerEvent('hayden_store:cooldown', i)
             TriggerClientEvent('hayden_store:clearTask', source, i)
             display = false 

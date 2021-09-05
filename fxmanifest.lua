@@ -16,7 +16,7 @@ client_scripts {
 	'client/*.lua',
 }
 
-dependancies {
+dependencies {
 	'es_extended',
 	'mythic_notify'
 }
