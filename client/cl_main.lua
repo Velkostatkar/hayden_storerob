@@ -1,23 +1,14 @@
 -------------------------------------
 --/* Script Made by Hayden#6789 */ --
 ------------------------------------- 
-
-ESX = nil
 local PlayerData = {}
-textPos = {x = 0.4, y = 0.955 }
-rgb = {r = 255, g = 64, b = 64}
-alpha = 255
-size = 0.6
-font = 4
-display = false 
-actualTime = 0
-
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-end)
+local textPos = {x = 0.4, y = 0.955 }
+local rgb = {r = 255, g = 64, b = 64}
+local alpha = 255
+local size = 0.6
+local font = 4
+local display = false 
+local actualTime = 0
 
 CreateThread(function() 
     while true do
