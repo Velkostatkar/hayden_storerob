@@ -5,6 +5,7 @@ author 'Hayden'
 version '0.0.1'
 
 shared_scripts {
+	'@es_extended/imports.lua',
 	'shared/*.lua'
 }
 

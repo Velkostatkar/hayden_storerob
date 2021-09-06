@@ -1,14 +1,9 @@
 -------------------------------------
 --/* Script Made by Hayden#6789 */ --
 ------------------------------------- 
-
-ESX = nil
-tooFar = false 
-pcountPolice = 0
-display = false
-
-
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+local tooFar = false 
+local pcountPolice = 0
+local display = false
 
 function hasWeapon()
     for k,v in pairs(Server.RobWeapons) do 
