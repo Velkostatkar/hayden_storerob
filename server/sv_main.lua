@@ -39,7 +39,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
                 for cop = 1, #xPlayers do 
                     local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
                     if xPlayer.job.name == 'police' then 
-                        TriggerClientEvent('hayden_store:callCops', -1, i, ped)
+                        TriggerClientEvent('hayden_store:callCops', source, i, ped)
                     end 
                 end 
     
