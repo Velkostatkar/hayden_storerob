@@ -165,7 +165,7 @@ AddEventHandler('hayden_store:callSafe', function(i, ped)
     SetBlipColour(robB, 3)
     PulseBlip(robB)
 
-    ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
+    ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['safe_msg'], mugshotStr, 4)
     UnregisterPedheadshot(mugshot)
 
     Citizen.Wait(30*1000)
