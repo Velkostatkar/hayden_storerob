@@ -107,6 +107,41 @@ AddEventHandler('hayden_store:beginRob', function(source, i, id)
 
 end)
 
+RegisterNetEvent('hayden_store:robSafe')
+AddEventHandler('hayden_store:robSafe', function(i, safePed)
+    local nearSafe = false 
+
+    ply = source 
+    plyPed = GetPlayerPed(ply)
+    pCoords = GetEntityCoords(plyPed)
+
+    sCoords = Config.NPC[i]['safeCoords']
+
+    Config.NPC[i]['safePed'] = safePed
+
+    if #(pCoords - sCoords) < 5 then 
+        nearSafe = true
+        if not Config.NPC[i]['safeRobbed'] then 
+            if nearSafe then
+                local xPlayers = ESX.GetPlayers()
+                for cop = 1, #xPlayers do 
+                    local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
+                    if xPlayer.job.name == 'police' then 
+                        TriggerClientEvent('hayden_store:callSafe', source, i, ped)
+                    end 
+                end 
+
+                Config.NPC[i]['safeRobbed'] = true
+                local safePay = math.random(Server.safeMin, Server.safeMax)
+                TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['robbedSafe'], length = 2500 })
+                TriggerEvent('hayden_store:safeCooldown',i)
+            end 
+        else 
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Translation[Config.Language]['alreadySafeRobbed'], length = 2500 })
+        end 
+    end 
+end)
+
 RegisterNetEvent('hayden_store:reward')
 AddEventHandler('hayden_store:reward', function(source, i)
     pay = math.random(Server.payMax, Server.payMin)
@@ -139,6 +174,18 @@ AddEventHandler('hayden_store:reward', function(source, i)
             print("Player with ID " .. source .. " tried to rob a store whilst not near one, maybe hacking?")
         end 
     end    
+end)
+
+RegisterNetEvent('hayden_store:safeCooldown')
+AddEventHandler('hayden_store:safeCooldown', function(i)
+    src = source 
+    Wait(Server.SafeCooldown * 1000)
+    Config.NPC[i]['safeRobbed'] = false
+    Config.NPC[i]['safePed'] = nil
+
+    if Config.Debug then 
+        print("The safe has been refreshed")
+    end
 end)
 
 RegisterNetEvent('hayden_store:cooldown')

@@ -4,11 +4,17 @@
 
 Server = {}
 
-Server.payMax = 20000 -- Minimum robbery payout
-Server.payMin = 25000 -- Maximum robbery payout
+Server.payMax = 20000 -- Max robbery payout
+Server.payMin = 25000 -- Min robbery payout
+
+Server.safeMax = 50000 -- Max Safe payout
+Server.safeMin = 30000 -- Min safe Payout
 
 -- Time before a store can be robbed again (seconds)
 Server.Cooldown = 1500
+
+-- Time before a safe can be robbed again (seconds)
+Server.SafeCooldown = 1500
 
 -- Time for the robbery to complete (seconds)
 Server.SetTimer = 300 

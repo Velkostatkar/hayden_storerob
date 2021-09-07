@@ -16,6 +16,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(1960.1, 3739.9, 31.3), -- Coords of the ped
         ['TextLoc'] = vector3(1960.1, 3739.9,31.0), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(1960.1,3739.9,31.3), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(1958.16,3748.53,31.34), -- Safe coords
+        ['safeText'] = vector3(1958.16,3748.53,30.34), -- Location of safe text
+        ['safeHeading'] = 29.12, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [2] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -28,6 +35,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(1728.92, 6417.29, 34.04), -- Coords of the ped
         ['TextLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(1728.92, 6417.29, 34.04), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(1734.04,6421.5,34.04), -- Safe coords
+        ['safeText'] = vector3(1734.04,6421.5,33.04), -- Location of safe text
+        ['safeHeading'] = 335.59, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [3] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -40,6 +54,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(1698.2, 4922.8, 41.1), -- Coords of the ped
         ['TextLoc'] = vector3(1698.2, 4922.8, 41.1), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(1698.2, 4922.8,42.1), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(1707.29, 4918.92, 41.06), -- Safe coords
+        ['safeText'] = vector3(1707.29, 4918.92, 40.06), -- Location of safe text
+        ['safeHeading'] = 239.12, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [4] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -52,6 +73,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(1392.84, 3606.58, 33.98), -- Coords of the ped
         ['TextLoc'] = vector3(1392.84, 3606.58, 33.98), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(1392.84,3606.58, 34.98), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(1392.31,3608.53,33.98), -- Safe coords
+        ['safeText'] = vector3(1392.31,3608.53,32.98), -- Location of safe text
+        ['safeHeading'] = 288.58, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [5] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -64,6 +92,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(1165.94, 2710.8, 37.16), -- Coords of the ped
         ['TextLoc'] = vector3(1165.94, 2710.8, 37.16), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(1165.94, 2710.8, 38.16), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(1167.75, 2714.08, 37.16), -- Safe coords
+        ['safeText'] = vector3(1167.75, 2714.08, 36.16), -- Location of safe text
+        ['safeHeading'] = 90.28, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [6] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -76,6 +111,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(549.39, 2668.98, 41.16), -- Coords of the ped
         ['TextLoc'] = vector3(549.39, 2668.98, 41.16), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3( 549.39, 2668.98, 42.16), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(547.51,2662.65,41.16), -- Safe coords
+        ['safeText'] = vector3(547.51,2662.65,40.16), -- Location of safe text
+        ['safeHeading'] = 186.77, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [7] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -88,6 +130,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(2676.02, 3280.57, 54.24), -- Coords of the ped
         ['TextLoc'] = vector3(2676.02, 3280.57, 54.24), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3( 2676.02,  3280.57,54.24), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(2671.97,3285.78,54.24), -- Safe coords
+        ['safeText'] = vector3(2671.97,3285.78,53.24), -- Location of safe text
+        ['safeHeading'] = 57.14, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [8] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -100,6 +149,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(-1820.27, 794.3, 137.09), -- Coords of the ped
         ['TextLoc'] = vector3(-1820.27, 794.3, 137.09), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(-1820.27, 794.3, 137.09), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(-1828.08,799.77,137.16), -- Safe coords
+        ['safeText'] = vector3(-1828.08,799.77,136.16), -- Location of safe text
+        ['safeHeading'] = 345.15, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
     [9] = {
         ['id'] = created_ped, -- This is the ID the specific shop is assigned on ped creation, do not touch
@@ -112,6 +168,13 @@ Config.NPC = { -- Shops must have unique IDs, as the table itterates through eac
         ['Coords'] = vector3(-3244.53, 1000.15, 11.83), -- Coords of the ped
         ['TextLoc'] = vector3(-3244.53, 1000.15, 11.83), -- Location of where you want the text to show on the shop keeper
         ['BlipLoc'] = vector3(-3244.53,1000.15, 11.83), -- Location of blips for store
+        ['safeID'] = safeCheck, -- The specific Safe ID - used to network serverside.
+        ['safeHash'] = `p_v_43_safe_s`, -- Hash of the safe, shouldn't really be changed but can be
+        ['wantSafe'] = true, -- Whether this store should spawn a safe
+        ['safeCoords'] = vector3(-3250.41,1003.39,11.83), -- Safe coords
+        ['safeText'] = vector3(-3250.41,1003.39,10.83), -- Location of safe text
+        ['safeHeading'] = 84.57, -- heading of the safe
+        ['safeRobbed'] = false, -- Do not touch
     },
 }
 
@@ -137,6 +200,9 @@ Translation = {
         ['nowep'] = "It appears you don't have the appropriate weaponry for this task!",
         ['shotNPC'] = "You've shot the NPC, the robbery has been cancelled!",
         ['tooFar'] = "You've gone too far from the store! Robbery cancelled!",
+        ['robbedSafe'] = "You've successfully robbed the safe! Run away!",
+        ['alreadySafeRobbed'] = "This safe has been robbed recently!",
+        ['safe_msg'] = "A safe alarm has been triggered, we've captured CCTV of the criminals face!",
     },
 
     ['de'] = {
@@ -152,6 +218,9 @@ Translation = {
         ['nowep'] = "Es scheint, dass Sie nicht über die entsprechenden Waffen für diese Aufgabe verfügen!",
         ['shotNPC'] = "Du hast den NPC erschossen, der Raub wurde abgesagt!",
         ['tooFar'] = "Du bist zu weit vom Laden entfernt! Raubüberfall abgesagt!",
+        ['robbedSafe'] = "Sie haben den Tresor erfolgreich ausgeraubt! Lauf weg!",
+        ['alreadySafeRobbed'] = "Dieser Tresor wurde kürzlich ausgeraubt!",
+        ['safe_msg'] = "Ein sicherer Alarm wurde ausgelöst, wir haben CCTV des Kriminellengesichts aufgenommen!",
     },
 
     ['it'] = {
@@ -167,6 +236,9 @@ Translation = {
         ['nowep'] = "Sembra che tu non abbia l'arma adatta per questa rapina!",
         ['shotNPC'] = "Hai sparato al negoziante, la rapina è annullata!",
         ['tooFar'] = "Sei andato troppo lontano dal negozio, la rapina è annullata!",
+        ['robbedSafe'] = "Hai derubato con successo la cassaforte! Scappa!",
+        ['alreadySafeRobbed'] = "Questa cassaforte è stata recentemente derubata!",
+        ['safe_msg'] = "È stato attivato un allarme sicuro, abbiamo registrato le telecamere a circuito chiuso del volto criminale!",
     },
 }
 

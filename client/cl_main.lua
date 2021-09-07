@@ -10,14 +10,17 @@ local font = 4
 local display = false 
 local actualTime = 0
 
-CreateThread(function() 
+CreateThread(function()
     while true do
+
         Citizen.Wait(0) 
         pCoords = GetEntityCoords(ESX.PlayerData.ped)
         aiming = GetEntityPlayerIsFreeAimingAt(PlayerId())  
-             
+
         for i = 1, #Config.NPC do 
             npcCoords = Config.NPC[i]['Coords']
+            safeCoords = Config.NPC[i]['safeCoords']
+               
 
             if #(pCoords - npcCoords) < 3 then
                 if IsPedArmed(ESX.PlayerData.ped, 7) then               
@@ -33,6 +36,20 @@ CreateThread(function()
                 end
             end
 
+            if Config.NPC[i]['wantSafe'] then 
+                if #(pCoords - safeCoords) < 3 then 
+                    Draw3DText( Config.NPC[i]['safeText'], "Press " .. Config.ContextKey .. " to rob the safe", 4, 0.1, 0.1)
+                    
+                    if IsControlJustPressed(0, Config.Key) then
+                        local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+                        
+                        if safe then
+                            TriggerServerEvent('hayden_store:robSafe', i, ped)
+                        end 
+                    end 
+                end 
+            end 
+                
             if display and actualTime ~= false and actualTime ~= true then 
                 SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
                 SetTextFont(font)
@@ -46,7 +63,8 @@ CreateThread(function()
                 DrawText(textPos.x, textPos.y)
            end
 
-        end 
+        end
+
     end
 end)
 
@@ -66,6 +84,8 @@ AddEventHandler('hayden_store:npcAnim', function(i)
     RemoveAnimDict(dict)
 
     PlayPedAmbientSpeechWithVoiceNative(Config.NPC[i]['id'], "SHOP_SCARED", "MP_M_SHOPKEEP_01_PAKISTANI_MINI_01", "SPEECH_PARAMS_FORCE", 1)
+    Wait(1000)
+    RemoveAnimDict(dict)
 end)
 
 RegisterNetEvent('hayden_store:npcGun')
@@ -131,6 +151,27 @@ AddEventHandler('hayden_store:callCops', function(i, ped)
     RemoveBlip(robB)
 end)
 
+RegisterNetEvent('hayden_store:callSafe')
+AddEventHandler('hayden_store:callSafe', function(i, ped)
+    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(ped)))
+
+    if Config.Debug then 
+        print("Safe with ID " .. i .. " is being robbed")
+    end
+
+    local robB = AddBlipForCoord(Config.NPC[i]['safeCoords'].x,Config.NPC[i]['safeCoords'].y,Config.NPC[i]['safeCoords'].z)
+    SetBlipSprite(robB , 161)
+    SetBlipScale(robB , 2.0)
+    SetBlipColour(robB, 3)
+    PulseBlip(robB)
+
+    ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
+    UnregisterPedheadshot(mugshot)
+
+    Citizen.Wait(30*1000)
+    RemoveBlip(robB)
+end)
+
 RegisterNetEvent('hayden_store:clearTask')
 AddEventHandler('hayden_store:clearTask', function(i)
     ClearPedTasks(Config.NPC[i]['id'])
@@ -176,7 +217,20 @@ CreateThread(function()
 
             if Config.Debug then 
                 print(Config.NPC[i]['id'])
+            end
+
+            if Config.NPC[i]['wantSafe'] then 
+                safeHash = Config.NPC[i]['safeHash']
+                if not DoesEntityExist(Config.NPC[i]['safeID']) then 
+                    createdSafe = CreateObject(safeHash, Config.NPC[i]['safeCoords'].x, Config.NPC[i]['safeCoords'].y, Config.NPC[i]['safeCoords'].z, false, true, false)
+                    NetworkRequestControlOfEntity(createdSafe)
+                    SetEntityHeading(createdSafe, Config.NPC[i]['safeHeading'])
+                    FreezeEntityPosition(createdSafe, true)
+                    PlaceObjectOnGroundProperly(createdSafe)
+                    Config.NPC[i]['safeID'] = createdSafe
+                end
             end 
+
         end
 
 end)
@@ -186,3 +240,9 @@ RegisterNetEvent('hayden_store:changeHud', function(timer)
     display = true 
     actualTime = timer
 end)
+
+AddEventHandler('onResourceStart', function()
+    DeleteEntity(createdSafe)
+end)
+  
+  
