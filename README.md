@@ -16,7 +16,7 @@ You can set this resource up by simply downloading, and dragging and dropping in
 ## Upcoming Features (Maybe)
 
 - Qtarget/bt-target support
-- Vault with minigame to rob
+
 ## Support
 
 I offer some limited support via my discord server: https://discord.gg/gKKfSx3s2V
