@@ -8,6 +8,8 @@ If you find ANY exploits within the script, please directly contact me via my di
 
 - [es_extended](https://github.com/esx-framework/es_extended/tree/legacy) (Legacy)
 - [mythic_notify](https://github.com/JayMontana36/mythic_notify.git)
+- [pd-safe](https://github.com/VHall1/pd-safe.git)
+
 ## How to setup?
 
 You can set this resource up by simply downloading, and dragging and dropping into your server (then obviously starting it).
