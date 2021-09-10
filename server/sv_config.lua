@@ -20,7 +20,7 @@ Server.SafeCooldown = 1500
 Server.SetTimer = 300 
 
  -- Required online cops to rob a store
-Server.RequiredCops = 2
+Server.RequiredCops = 0
 
 -- Chance for the store owner to fight back (percentage)
 Server.AttackChance = 5

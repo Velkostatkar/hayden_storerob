@@ -109,8 +109,7 @@ end)
 
 RegisterNetEvent('hayden_store:robSafe')
 AddEventHandler('hayden_store:robSafe', function(i, safePed)
-    local nearSafe = false 
-
+    local nearSafe = false
     ply = source 
     plyPed = GetPlayerPed(ply)
     pCoords = GetEntityCoords(plyPed)
@@ -119,8 +118,8 @@ AddEventHandler('hayden_store:robSafe', function(i, safePed)
 
     Config.NPC[i]['safePed'] = safePed
 
-    if #(pCoords - sCoords) < 5 then 
-        nearSafe = true
+    if #(pCoords - sCoords) < 5 then
+        nearSafe = true  
         if not Config.NPC[i]['safeRobbed'] then 
             if nearSafe then
                 local xPlayers = ESX.GetPlayers()

@@ -11,45 +11,74 @@ local display = false
 local actualTime = 0
 
 CreateThread(function()
+
+    if Config.UseQtarget then
+            exports.qtarget:AddTargetModel({`p_v_43_safe_s`}, {
+                options = {
+                    {
+                        event = "hayden_store:safeHandle",
+                        icon = "fas fa-box-circle-check",
+                        label = "Rob Safe",
+                        num = 1
+                    },
+                },
+                distance = 2
+            })
+
+            exports.qtarget:AddTargetModel({`mp_m_shopkeep_01`}, {
+                options = {
+                    {
+                        event = "hayden_store:clerkHandle",
+                        icon = "fas fa-box-circle-check",
+                        label = "Rob Clerk",
+                        num = 1
+                    },
+                },
+                distance = 2
+            })
+    end 
+
     while true do
-
         Citizen.Wait(0) 
-        pCoords = GetEntityCoords(ESX.PlayerData.ped)
-        aiming = GetEntityPlayerIsFreeAimingAt(PlayerId())  
-
         for i = 1, #Config.NPC do 
-            npcCoords = Config.NPC[i]['Coords']
-            safeCoords = Config.NPC[i]['safeCoords']
-               
 
-            if #(pCoords - npcCoords) < 3 then
-                if IsPedArmed(ESX.PlayerData.ped, 7) then               
-                    if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
-                        Draw3DText( Config.NPC[i]['TextLoc'], "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
-                        if IsControlJustPressed(0, Config.Key) then
-                            id = Config.NPC[i]['id']
-                            FreezeEntityPosition(Config.NPC[i]['id'], false)
-                            SetEntityInvincible(Config.NPC[i]['id'], false)
-                            TriggerServerEvent('hayden_store:robClerk', i, id, ped)
-                        end 
+            if not Config.UseQtarget then
+
+                pCoords = GetEntityCoords(ESX.PlayerData.ped)
+                aiming = GetEntityPlayerIsFreeAimingAt(PlayerId())  
+
+                npcCoords = Config.NPC[i]['Coords']
+                safeCoords = Config.NPC[i]['safeCoords']
+
+                if #(pCoords - npcCoords) < 3 then
+                    if IsPedArmed(ESX.PlayerData.ped, 7) then               
+                        if aiming and not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
+                            Draw3DText( Config.NPC[i]['TextLoc'], "Press " .. Config.ContextKey .. " to threaten shop keeper", 4, 0.1, 0.1)
+                            if IsControlJustPressed(0, Config.Key) then
+                                id = Config.NPC[i]['id']
+                                FreezeEntityPosition(Config.NPC[i]['id'], false)
+                                SetEntityInvincible(Config.NPC[i]['id'], false)
+                                TriggerServerEvent('hayden_store:robClerk', i, id, ped)
+                            end 
+                        end
                     end
                 end
-            end
 
-            if Config.NPC[i]['wantSafe'] then 
-                if #(pCoords - safeCoords) < 3 then 
-                    Draw3DText( Config.NPC[i]['safeText'], "Press " .. Config.ContextKey .. " to rob the safe", 4, 0.1, 0.1)
-                    
-                    if IsControlJustPressed(0, Config.Key) then
-                        local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+                if Config.NPC[i]['wantSafe'] then 
+                    if #(pCoords - safeCoords) < 3 then 
+                        Draw3DText( Config.NPC[i]['safeText'], "Press " .. Config.ContextKey .. " to rob the safe", 4, 0.1, 0.1)
                         
-                        if safe then
-                            TriggerServerEvent('hayden_store:robSafe', i, ped)
+                        if IsControlJustPressed(0, Config.Key) then
+                            local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+                            
+                            if safe then
+                                TriggerServerEvent('hayden_store:robSafe', i, ped)
+                            end 
                         end 
                     end 
-                end 
+                end
             end 
-                
+
             if display and actualTime ~= false and actualTime ~= true then 
                 SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
                 SetTextFont(font)
@@ -68,6 +97,42 @@ CreateThread(function()
     end
 end)
 
+RegisterNetEvent('hayden_store:safeHandle')
+AddEventHandler('hayden_store:safeHandle', function()
+    for i = 1, #Config.NPC do 
+        pCoords = GetEntityCoords(ESX.PlayerData.ped)
+        safeCoords = Config.NPC[i]['safeCoords']
+
+        if #(pCoords - safeCoords) < 5 then 
+            local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+            if safe then
+                TriggerServerEvent('hayden_store:robSafe', i, ped)
+            end 
+        end 
+    end 
+end)
+
+RegisterNetEvent('hayden_store:clerkHandle')
+AddEventHandler('hayden_store:clerkHandle', function()
+    for i = 1, #Config.NPC do 
+
+        pCoords = GetEntityCoords(ESX.PlayerData.ped)
+        npcCoords = Config.NPC[i]['Coords']
+
+        if #(pCoords - npcCoords) < 5 then 
+            if IsPedArmed(ESX.PlayerData.ped, 7) then               
+                if not IsPedDeadOrDying(Config.NPC[i]['id']) and GetEntityHealth(Config.NPC[i]['id']) > 0 then 
+                        id = Config.NPC[i]['id']
+                        FreezeEntityPosition(Config.NPC[i]['id'], false)
+                        SetEntityInvincible(Config.NPC[i]['id'], false)
+                        TriggerServerEvent('hayden_store:robClerk', i, id, ped)
+                end 
+            else 
+                print("Player unarmed")
+            end
+        end 
+    end 
+end)
 
 RegisterNetEvent('hayden_store:npcAnim')
 AddEventHandler('hayden_store:npcAnim', function(i)

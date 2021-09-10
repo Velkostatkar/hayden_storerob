@@ -3,6 +3,7 @@
 ------------------------------------- 
 
 Config = {}
+Config.UseQtarget = true -- Do you want to use Qtarget rather then drawing text?
 
 Config.NPC = { -- Shops must have unique IDs, as the table itterates through each ID
     [1] = {
