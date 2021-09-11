@@ -79,20 +79,20 @@ CreateThread(function()
                 end
             end 
 
-            if display and actualTime ~= false and actualTime ~= true then 
-                SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
-                SetTextFont(font)
-                SetTextScale(size, size)
-                SetTextWrap(0.0, 1.0)
-                SetTextCentre(false)
-                SetTextDropshadow(2, 2, 0, 0, 0)
-                SetTextEdge(1, 0, 0, 0, 205)
-                SetTextEntry("STRING")
-                AddTextComponentString("Robbery in progress, time left : ".. actualTime)
-                DrawText(textPos.x, textPos.y)
-           end
-
         end
+
+        if display and actualTime ~= false and actualTime ~= true then 
+            SetTextColour(rgb.r, rgb.g, rgb.b, alpha)
+            SetTextFont(font)
+            SetTextScale(size, size)
+            SetTextWrap(0.0, 1.0)
+            SetTextCentre(false)
+            SetTextDropshadow(2, 2, 0, 0, 0)
+            SetTextEdge(1, 0, 0, 0, 205)
+            SetTextEntry("STRING")
+            AddTextComponentString("Robbery in progress, time left : ".. actualTime)
+            DrawText(textPos.x, textPos.y)
+       end
 
     end
 end)
