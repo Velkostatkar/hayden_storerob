@@ -143,7 +143,7 @@ end)
 
 RegisterNetEvent('hayden_store:reward')
 AddEventHandler('hayden_store:reward', function(source, i)
-    pay = math.random(Server.payMax, Server.payMin)
+    pay = math.random(Server.payMin, Server.payMax)
     xPlayer = ESX.GetPlayerFromId(source)
 
     if (#pCoords - #sCoords) < 10 then
