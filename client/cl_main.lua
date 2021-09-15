@@ -197,23 +197,26 @@ end)
 
 RegisterNetEvent('hayden_store:callCops')
 AddEventHandler('hayden_store:callCops', function(i, ped)
-    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(ped)))
 
-    if Config.Debug then 
-        print("Store with ID " .. i .. " is being robbed")
-    end
+    if ESX.PlayerData.job.name == 'police' then 
+        local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(GetPlayerFromServerId(ped)))
 
-    local robB = AddBlipForCoord(Config.NPC[i]['Coords'].x,Config.NPC[i]['Coords'].y,Config.NPC[i]['Coords'].z)
-    SetBlipSprite(robB , 161)
-    SetBlipScale(robB , 2.0)
-    SetBlipColour(robB, 3)
-    PulseBlip(robB)
+        if Config.Debug then 
+            print("Store with ID " .. i .. " is being robbed")
+        end
 
-    ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
-    UnregisterPedheadshot(mugshot)
+        local robB = AddBlipForCoord(Config.NPC[i]['Coords'].x,Config.NPC[i]['Coords'].y,Config.NPC[i]['Coords'].z)
+        SetBlipSprite(robB , 161)
+        SetBlipScale(robB , 2.0)
+        SetBlipColour(robB, 3)
+        PulseBlip(robB)
 
-    Citizen.Wait(30*1000)
-    RemoveBlip(robB)
+        ESX.ShowAdvancedNotification(Config.NPC[i]['Name'], Translation[Config.Language]['robbing'], Translation[Config.Language]['cop_msg'], mugshotStr, 4)
+        UnregisterPedheadshot(mugshot)
+
+        Citizen.Wait(30*1000)
+        RemoveBlip(robB)
+    end 
 end)
 
 RegisterNetEvent('hayden_store:callSafe')
