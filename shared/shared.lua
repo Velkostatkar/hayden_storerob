@@ -241,6 +241,24 @@ Translation = {
         ['alreadySafeRobbed'] = "Questa cassaforte è stata recentemente derubata!",
         ['safe_msg'] = "È stato attivato un allarme sicuro, abbiamo registrato le telecamere a circuito chiuso del volto criminale!",
     },
+
+    ['es'] = {
+        ['robbing'] = "Alarma de robo activada",
+        ['cop_msg'] = "Se ha activado la alarma en una tienda, el CCTV ha captado la cara de los criminales!",
+        ['set_waypoint'] = "Establecer ruta a la tienda",
+        ['hide_box'] = "Cerrar este cuadro",
+        ['playerRobbing'] = "¡Estás robando la tienda! ¡Mantén tu arma apuntando!",
+        ['robbery'] = "Robo a tienda",
+        ['no_cop'] = "¡No hay suficientes policías de servicio para robar la tienda!",
+        ['recent'] = "¡Esta tienda ha sido robada recientemente!",
+        ['success'] = "¡Has robado con éxito la tienda!",
+        ['nowep'] = "¡Parece que no tienes el arma apropiada para robar!",
+        ['shotNPC'] = "¡Le disparaste al Tendero, el robo ha sido cancelado!",
+        ['tooFar'] = "¡Has ido demasiado lejos de la tienda! ¡Robo cancelado!",
+        ['robbedSafe'] = "¡Has robado con éxito la caja fuerte! ¡Huye!",
+        ['alreadySafeRobbed'] = "¡Esta caja fuerte ha sido robada recientemente!",
+        ['safe_msg'] = "¡Se ha activado una alarma de seguridad, hemos capturado con el CCTV la cara de los criminales!",
+    },
 }
 
 
