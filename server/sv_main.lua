@@ -39,7 +39,7 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
                 for cop = 1, #xPlayers do 
                     local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
                     if xPlayer.job.name == 'police' then 
-                        TriggerClientEvent('hayden_store:callCops', source, i, ped)
+                        TriggerClientEvent('hayden_store:callCops', -1, i, ped)
                     end 
                 end 
     
@@ -118,18 +118,18 @@ AddEventHandler('hayden_store:robSafe', function(i, safePed)
 
     Config.NPC[i]['safePed'] = safePed
 
+    for cop = 1, #xPlayers do 
+        local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
+        if xPlayer.job.name == 'police' then 
+            TriggerClientEvent('hayden_store:callSafe', -1, i, ped)
+        end 
+    end 
+
     if #(pCoords - sCoords) < 5 then
         nearSafe = true  
         if not Config.NPC[i]['safeRobbed'] then 
             if nearSafe then
                 local xPlayers = ESX.GetPlayers()
-                for cop = 1, #xPlayers do 
-                    local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
-                    if xPlayer.job.name == 'police' then 
-                        TriggerClientEvent('hayden_store:callSafe', source, i, ped)
-                    end 
-                end 
-
                 Config.NPC[i]['safeRobbed'] = true
                 local safePay = math.random(Server.safeMin, Server.safeMax)
                 TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['robbedSafe'], length = 2500 })
