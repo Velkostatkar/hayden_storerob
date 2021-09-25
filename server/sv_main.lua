@@ -63,6 +63,19 @@ AddEventHandler('hayden_store:robClerk', function(i, id, ped)
     end 
 end)
 
+ESX.RegisterServerCallback('hayden_store:checkCops', function(src, cb)
+    xPlayer = ESX.GetPlayerFromId(src)
+    local xPlayers = ESX.GetExtendedPlayers('job', 'police')
+
+    if #xPlayers >= Server.RequiredCops then 
+        enoughCops = true
+    else 
+        enoughCops = false
+    end 
+
+    cb(enoughCops)
+end)
+
 RegisterNetEvent('hayden_store:beginRob')
 AddEventHandler('hayden_store:beginRob', function(source, i, id)
     local timer = (Server.SetTimer * 1000)

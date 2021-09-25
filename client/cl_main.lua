@@ -64,18 +64,22 @@ CreateThread(function()
                     end
                 end
 
-                if Config.NPC[i]['wantSafe'] then 
-                    if #(pCoords - safeCoords) < 3 then 
-                        Draw3DText( Config.NPC[i]['safeText'], "Press " .. Config.ContextKey .. " to rob the safe", 4, 0.1, 0.1)
-                        
-                        if IsControlJustPressed(0, Config.Key) then
-                            local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
-                            
-                            if safe then
-                                TriggerServerEvent('hayden_store:robSafe', i, ped)
+                if Config.NPC[i]['wantSafe'] then
+                    ESX.TriggerServerCallback('hayden_store:checkCops', function(enoughCops)
+                        if enoughCops then 
+                            if #(pCoords - safeCoords) < 3 then 
+                                Draw3DText( Config.NPC[i]['safeText'], "Press " .. Config.ContextKey .. " to rob the safe", 4, 0.1, 0.1)
+                                
+                                if IsControlJustPressed(0, Config.Key) then
+                                    local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+                                    
+                                    if safe then
+                                        TriggerServerEvent('hayden_store:robSafe', i, ped)
+                                    end 
+                                end 
                             end 
                         end 
-                    end 
+                    end)
                 end
             end 
 
@@ -100,15 +104,21 @@ end)
 RegisterNetEvent('hayden_store:safeHandle')
 AddEventHandler('hayden_store:safeHandle', function()
     for i = 1, #Config.NPC do 
-        pCoords = GetEntityCoords(ESX.PlayerData.ped)
-        safeCoords = Config.NPC[i]['safeCoords']
-
-        if #(pCoords - safeCoords) < 5 then 
-            local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
-            if safe then
-                TriggerServerEvent('hayden_store:robSafe', i, ped)
+        ESX.TriggerServerCallback('hayden_store:checkCops', function(enoughCops)
+            pCoords = GetEntityCoords(ESX.PlayerData.ped)
+            safeCoords = Config.NPC[i]['safeCoords']
+            
+            if #(pCoords - safeCoords) < 5 then 
+                if enoughCops then
+                    local safe = exports["pd-safe"]:createSafe({math.random(0,5)})
+                    if safe then
+                        TriggerServerEvent('hayden_store:robSafe', i, ped)
+                    end
+                else 
+                    exports['mythic_notify']:SendAlert('error', 'Not enough cops online') 
+                end
             end 
-        end 
+        end)
     end 
 end)
 
