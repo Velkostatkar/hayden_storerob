@@ -13,9 +13,15 @@ If you find ANY exploits within the script, please directly contact me via my di
 ## How to setup?
 
 You can set this resource up by simply downloading, and dragging and dropping into your server (then obviously starting it).
-## Upcoming Features (Maybe)
 
-- Qtarget/bt-target support
+## Features
+Choose between robbing the Clerk or the safe. Exploit checking & Cop notifications included.
+
+Optimised and ready for a public server - networked & synced between players
+
+## Upcoming Features
+
+- Nothing Planned
 
 ## Support
 
