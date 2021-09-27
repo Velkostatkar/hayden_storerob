@@ -126,16 +126,16 @@ AddEventHandler('hayden_store:robSafe', function(i, safePed)
     ply = source 
     plyPed = GetPlayerPed(ply)
     pCoords = GetEntityCoords(plyPed)
-    local xPlayers = ESX.GetExtendedPlayers('job', 'police')
-    
-    sCoords = Config.NPC[i]['safeCoords']
 
+    sCoords = Config.NPC[i]['safeCoords']
     Config.NPC[i]['safePed'] = safePed
+
+    local xPlayers = ESX.GetPlayers()
 
     for cop = 1, #xPlayers do 
         local xPlayer = ESX.GetPlayerFromId(xPlayers[cop])
         if xPlayer.job.name == 'police' then 
-            TriggerClientEvent('hayden_store:callSafe', -1, i, ped)
+            TriggerClientEvent('hayden_store:callCops', -1, i, ped)
         end 
     end 
 
