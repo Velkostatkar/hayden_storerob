@@ -126,7 +126,8 @@ AddEventHandler('hayden_store:robSafe', function(i, safePed)
     ply = source 
     plyPed = GetPlayerPed(ply)
     pCoords = GetEntityCoords(plyPed)
-
+    local xPlayers = ESX.GetExtendedPlayers('job', 'police')
+    
     sCoords = Config.NPC[i]['safeCoords']
 
     Config.NPC[i]['safePed'] = safePed
