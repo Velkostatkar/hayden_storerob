@@ -143,9 +143,11 @@ AddEventHandler('hayden_store:robSafe', function(i, safePed)
         nearSafe = true  
         if not Config.NPC[i]['safeRobbed'] then 
             if nearSafe then
-                local xPlayers = ESX.GetPlayers()
-                Config.NPC[i]['safeRobbed'] = true
+                math.randomseed(os.time())
                 local safePay = math.random(Server.safeMin, Server.safeMax)
+
+                Config.NPC[i]['safeRobbed'] = true
+                xPlayer.addAccountMoney('money', safePay)
                 TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = Translation[Config.Language]['robbedSafe'], length = 2500 })
                 TriggerEvent('hayden_store:safeCooldown',i)
             end 
