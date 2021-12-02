@@ -205,6 +205,25 @@ Translation = {
         ['alreadySafeRobbed'] = "This safe has been robbed recently!",
         ['safe_msg'] = "A safe alarm has been triggered, we've captured CCTV of the criminals face!",
     },
+        ['cs'] = {
+        ['robbing'] = "Alarm byl spuštěn",
+        ['cop_msg'] = "V obchodě byl spuštěn alarm, kamerový systém zachytil obličej zločinců!",
+        ['set_waypoint'] = "Nastavte bod cesty k obchodu",
+        ['hide_box'] = "Zavřít ",
+        ['playerRobbing'] = "Nyní vykrádáte obchod! Měj namířenou zbraň!",
+        ['robbery'] ="Přepadení obchodu",
+        ['no_cop'] = "Na vyloupení obchodu není ve službě dost policistů!",
+        ['recent'] = "Tento obchod byl nedávno vykraden!",
+        ['success'] = "Úspěšně jste vykradli tento obchod!",
+        ['nowep'] = "Zdá se, že pro tento úkol nemáte vhodnou zbraň!",
+        ['shotNPC'] = "Zastřelil jsi NPC, loupež byla zrušena!",
+        ['tooFar'] = "Dostal ses příliš daleko od obchodu! Loupež zrušena!",
+        ['robbedSafe'] = "Úspěšně jste vykradli trezor! Utečte!",
+        ['alreadySafeRobbed'] = "Tento trezor byl nedávno vykraden!",
+        ['safe_msg'] = "Byl spuštěn alarm trezoru, zachytili jsme kamerový záznam obličeje zločince!",
+    },
+
+
 
     ['de'] = {
         ['robbing'] = "Alarm wurde ausgelöst",
